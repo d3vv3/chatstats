@@ -1,0 +1,12 @@
+.App {
+  margin: 0;
+  height: 100vh;
+  color: white;
+  background-color: black;
+  background-image: linear-gradient(140deg, $backColor1, $backColor2);
+  // background-image: linear-gradient(140deg, $backColor3, $backColor4);
+  h1 {
+    padding: 20px;
+    margin: 0;
+  }
+}
