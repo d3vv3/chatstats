@@ -8,7 +8,11 @@
   background-color: black;
 
   // Nice conic gradient background on the left
-  background: conic-gradient(from 180deg at left, $backColor4, #fff);
+  background: conic-gradient(
+    from 180deg at left,
+    $backGradientFrom,
+    $backGradientTo
+  );
 
   h1 {
     padding: 20px;
