@@ -1,0 +1,31 @@
+$primary-color: black;
+$secondary-color: red;
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+
+    + label {
+        padding: 0.5em;
+		border-radius: 15px;
+        font-size: 1.25em;
+        font-weight: 500;
+        color: white;
+        background-color: $primary-color;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    &:focus + label,
+    + label:hover {
+        background-color: $secondary-color;
+    }
+
+    &:focus + label {
+        background-color: $secondary-color;
+    }
+}
