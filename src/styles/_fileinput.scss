@@ -1,0 +1,37 @@
+$primary-color: black;
+$secondary-color: red;
+
+.inputfile {
+  // Hides the ugly default input file so only the label shows
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+
+  + label {
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    background-image: linear-gradient(140deg, $backColor1, $backColor2);
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  &:focus + label,
+  + label:hover {
+    color: black;
+    background-image: linear-gradient(140deg, $backColor3, $backColor4);
+    background-color: $backColor3;
+  }
+
+  &:focus + label {
+    color: black;
+    background-image: linear-gradient(140deg, $backColor3, $backColor4);
+    background-color: $backColor3;
+  }
+}
