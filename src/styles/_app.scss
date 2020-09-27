@@ -13,6 +13,16 @@
     $backGradientFrom,
     $backGradientTo
   );
+  background: -moz-conic-gradient(
+    from 180deg at left,
+    $backGradientFrom,
+    $backGradientTo
+  );
+  background: -webkit-conic-gradient(
+    from 180deg at left,
+    $backGradientFrom,
+    $backGradientTo
+  );
 
   h1 {
     padding: 20px;
