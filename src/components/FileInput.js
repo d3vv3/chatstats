@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { readFile } from "../logic/fileReader.js";
 
 // Style
 import "../styles/style.scss";
 
 function FileInput(props) {
   const [fileName, setFileName] = useState(null);
+  const [fileContent, setFileContent] = useState(null);
 
   const updateFormState = (event) => {
-    const { name, value } = event.target;
+    const { name, value, files } = event.target;
     switch (name) {
       case "file":
         setFileName(value);
-        // console.log(name, event);
+        setFileContent(files[0]);
+        // console.log(name, event.target);
         break;
       default:
         return;
@@ -22,6 +25,8 @@ function FileInput(props) {
 
   const submitForm = (event) => {
     console.log("File submited!");
+    // console.log(event.target);
+    readFile(fileContent);
     return null;
   };
 
