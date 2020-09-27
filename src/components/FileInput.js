@@ -26,7 +26,7 @@ function FileInput(props) {
   const submitForm = (event) => {
     console.log("File submited!");
     // console.log(event.target);
-    readFile(fileContent);
+    readFile(fileContent, fileName);
     return null;
   };
 
