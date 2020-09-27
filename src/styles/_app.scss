@@ -8,7 +8,7 @@
   background-color: black;
 
   // Nice conic gradient background on the left
-  background: conic-gradient(
+  background-image: conic-gradient(
     from 180deg at left,
     $backGradientFrom,
     $backGradientTo
@@ -39,7 +39,6 @@
   h2 {
     width: 60vw;
     color: black;
-
     text-align: center;
   }
 
