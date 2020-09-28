@@ -4,8 +4,8 @@ export function processTxt(fileContentString) {
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
 
-  // Parse messages
-  var parseList = msgList.map(parseMessage);
+  var index = 0;
+  var parsedList = [];
 
   // Filter to remove empty messages from parsing
   parseList = parseList.filter((elem) => elem !== null);
