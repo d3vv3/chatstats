@@ -8,11 +8,15 @@ import LoadingIcon from "./components/LoadingIcon";
 import "./styles/style.scss";
 
 function App() {
-  const [filePage, setFilePage] = useState(true);
+  // Main app states: 0 (main), 1 (loading) 2 (viz)
+  const [filePage, setFilePage] = useState(0);
+
+  // Chat object
+  const [chatObject, setChatObject] = useState(null);
 
   return (
     <div className="App">
-      {filePage === true ? (
+      {filePage === 0 ? (
         <div className="landing-container">
           <h1>
             <span className="gradient-text">ChatStats!</span>
@@ -23,7 +27,7 @@ function App() {
             Whatsapp or Telegram chats.
           </h2>
 
-          <FileInput handler={setFilePage} />
+          <FileInput handler={setFilePage} setChatObject={setChatObject} />
           <p>
             Your information never leaves your device. It never gets sent. Every
             operation happens in your device. Check the code{" "}
