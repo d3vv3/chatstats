@@ -2,17 +2,17 @@ import React, { useState } from "react";
 
 // Local imports
 import FileInput from "./components/FileInput";
-import LoadingIcon from "./components/LoadingIcon";
+import Viz from "./components/Viz";
 
 // Style
 import "./styles/style.scss";
 
 function App() {
-  // Main app states: 0 (main), 1 (loading) 2 (viz)
+  // Main app states: 0 (main), 1 (visualize)
   const [filePage, setFilePage] = useState(0);
 
   // Chat object
-  const [chatObject, setChatObject] = useState(null);
+  const [chatObject, setChatObject] = useState({});
 
   return (
     <div className="App">
@@ -21,12 +21,13 @@ function App() {
           <h1>
             <span className="gradient-text">ChatStats!</span>
           </h1>
-
           <h2>
             A tool to visualize chat statistics and relevant data from your
             Whatsapp or Telegram chats.
           </h2>
-
+          {
+            // Allow the component to change FilePage and chatObject
+          }
           <FileInput handler={setFilePage} setChatObject={setChatObject} />
           <p>
             Your information never leaves your device. It never gets sent. Every
@@ -35,7 +36,7 @@ function App() {
           </p>
         </div>
       ) : (
-        <LoadingIcon />
+        <Viz chatObject={chatObject} />
       )}
     </div>
   );

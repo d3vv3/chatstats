@@ -1,5 +1,5 @@
 // Returns number of messages per contact
-function messageCount(polarizedChat) {
+export function messageCount(polarizedChat) {
   var result = {};
 
   // Iterate polarizedChat keys and see their array length

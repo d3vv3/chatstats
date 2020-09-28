@@ -1,9 +1,9 @@
 import { messageCount } from "./toolset.js";
-var chatObject = require("./result.json");
-// console.log(chatObject);
+// var chatObject = require("./result.json");
 
-export function polarize(chatObject) {
+export function getPolarizedChat(chatObject) {
   // Separate each contact messages to analize separately
+  console.log(chatObject);
   var result = {};
 
   // Iterate through every message
@@ -17,4 +17,6 @@ export function polarize(chatObject) {
   return result;
 }
 
-messageCount(polarize(chatObject));
+export function getMessageCount(polarizedChat) {
+  return messageCount(polarizedChat);
+}
