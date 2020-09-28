@@ -28,7 +28,9 @@ function Viz(props) {
 
       // Set loading to false once finished
       setLoading(false);
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   }, [props.chatObject]);
   // This array is so useEffect doesn't trigger endlessly but once,
   // and then when the props.chatObject updates

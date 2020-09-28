@@ -1,15 +1,19 @@
+var randomColor = require("randomcolor");
+
 // Separate each contact messages to analize separately
 export function getPolarizedChat(chatObject) {
-  console.log(chatObject);
+  // console.log(chatObject);
   var result = {};
-
-  // Iterate through every message
-  for (let msg of chatObject.messages) {
-    // If the contact is in results as key
-    result[msg.from] != null
-      ? result[msg.from].push(msg) // Then add the message to its key
-      : (result[msg.from] = [msg]); // If it doesn't exist, create array with it
-  }
+  // Try in case component called it with null argument
+  try {
+    // Iterate through every message
+    for (let msg of chatObject.messages) {
+      // If the contact is in results as key
+      result[msg.from] != null
+        ? result[msg.from].push(msg) // Then add the message to its key
+        : (result[msg.from] = [msg]); // If it doesn't exist, create array with it
+    }
+  } catch (e) {}
 
   return result;
 }
@@ -23,16 +27,21 @@ export function getMessageCount(polarizedChat) {
     nonChatjsResult[key] = polarizedChat[key].length;
   });
 
+  // Scalable way of generating colors
+  var colors = randomColor({
+    count: Object.keys(polarizedChat).length,
+    hue: "purple",
+    luminosity: "bright",
+  });
+
   // Result should have a format Chartjs Doughnut wants
   return {
     labels: Object.keys(nonChatjsResult),
     datasets: [
       {
         data: Object.values(nonChatjsResult),
-
-        // TODO: figure a scalable way of doing this
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
       },
     ],
   };
