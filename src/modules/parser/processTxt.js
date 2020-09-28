@@ -5,7 +5,7 @@ export function processTxt(fileContentString) {
   var msgList = fileContentString.split(patt);
 
   var index = 0;
-  var parsedList = new Array();
+  var parsedList = [];
 
   while(index > -1) {
       index = msgList.findIndex((value) => {return patt.test(value)})

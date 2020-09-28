@@ -1,4 +1,5 @@
 import { processTxt } from "./processTxt.js";
+import { processJson } from "./processJson.js";
 
 export function messageParser(fileContentString, fileName) {
   // Define both supported extension types
@@ -17,7 +18,7 @@ export function messageParser(fileContentString, fileName) {
   } else if (isJson.test(fileName)) {
     try {
       // eslint-disable-next-line
-      var chat = JSON.parse(fileContentString);
+      var chat = processJson(fileContentString);
       console.log(chat);
     } catch (e) {
       console.error("Are you sure the file is a valid chat?");
