@@ -1,5 +1,4 @@
 .App {
-  @include flexCenter(column);
   margin: 0;
   height: 100vh;
   color: white;
@@ -20,6 +19,12 @@
     $backGradientFrom,
     $backGradientTo
   );
+
+  .landing-container {
+    margin: 0;
+    @include flexCenter(column);
+    height: 100vh;
+  }
 
   h1 {
     padding: 20px;

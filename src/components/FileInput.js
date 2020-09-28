@@ -27,6 +27,7 @@ function FileInput(props) {
     console.log("File submited!");
     // console.log(event.target);
     readFile(fileContent, fileName);
+    props.handler(false);
     return null;
   };
 
