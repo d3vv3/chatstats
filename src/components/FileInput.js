@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { readFile } from "../modules/parser/fileReader.js";
+import { processFile } from "../modules/parser/fileReader.js";
 
 // Style
 import "../styles/style.scss";
@@ -25,8 +25,10 @@ function FileInput(props) {
 
   const submitForm = (event) => {
     console.log("File submited!");
-    // console.log(event.target);
-    readFile(fileContent, fileName);
+    // Set app state to chatObject
+    processFile(fileContent, fileName, props.setChatObject);
+    // Change app state to loading
+    props.handler(1);
     return null;
   };
 

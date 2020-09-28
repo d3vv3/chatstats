@@ -1,6 +1,6 @@
 import { messageParser } from "./messageParser.js";
 
-export function readFile(fileContent, fileName) {
+export function processFile(fileContent, fileName, callback) {
   let reader = new FileReader();
 
   // Get the content of the file as a String (maybe give utf-8?)
@@ -9,12 +9,12 @@ export function readFile(fileContent, fileName) {
   // Callback every time a reading operation is complete
   reader.onload = function () {
     // console.log(reader.result);
-    messageParser(reader.result, fileName);
+    callback(messageParser(reader.result, fileName));
   };
 
   // Callback each time an error occurs on any other operation
   reader.onerror = function () {
     // Send to logging and pass
-    console.log(reader.error);
+    console.error(reader.error);
   };
 }
