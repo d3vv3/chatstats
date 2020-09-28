@@ -1,22 +1,29 @@
 import { processTxt } from "./processTxt.js";
 
-export function messageParser(messages, fileName) {
+export function messageParser(fileContentString, fileName) {
+  // Define both supported extension types
+  var isTxt = /.txt$/;
+  var isJson = /.json$/;
 
-    var isTxt = /.txt$/;
-    var isJson = /.json$/;
-
-    if (isTxt.test(fileName)) {
-        var chat = processTxt(messages);
-        console.log(chat);
+  // Check the extension of the input file
+  if (isTxt.test(fileName)) {
+    try {
+      var chat = processTxt(fileContentString);
+      console.log(chat);
+    } catch (e) {
+      console.error("Are you sure the file is a valid chat?");
+      console.debug(e);
     }
-
-    else if (isJson.test(fileName)) {
-        var chat = JSON.parse(messages);
-        console.log(chat);
+  } else if (isJson.test(fileName)) {
+    try {
+      // eslint-disable-next-line
+      var chat = JSON.parse(fileContentString);
+      console.log(chat);
+    } catch (e) {
+      console.error("Are you sure the file is a valid chat?");
+      console.debug(e);
     }
-
-    else {
-        console.log('Error: file type not supported.');
-    }
-
+  } else {
+    console.error("File extension not supported.");
+  }
 }
