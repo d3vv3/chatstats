@@ -1,11 +1,16 @@
-export function processTxt(messages) {
+export function processTxt(fileContentString) {
   var patt = /(\n[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2} - .*)/;
 
-  var msgList = messages.split(patt);
+  // Split messages on protptype match
+  var msgList = fileContentString.split(patt);
 
+  // Parse messages
   var parseList = msgList.map(parseMessage);
-  parseList = parseList.filter((elem) => elem !== "");
 
+  // Filter to remove empty messages from parsing
+  parseList = parseList.filter((elem) => elem !== null);
+
+  // Acommodate format to Telegram chats
   var chat = { messages: parseList, name: "Whatsapp chat" };
 
   return chat;
