@@ -34,7 +34,7 @@ function parseMessage(text) {
     date: messagesArray[1], // Date metadata
     from: messagesArray[2], // Contact name metadata
     text: messagesArray[3], // Message content
-    type: messagesArray[3] === "<Media omitted>" ? "media" : "message", // Telegram compatibility
+    type: "message", // Telegram compatibility
   };
 
   // Returns the message objet
