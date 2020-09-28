@@ -7,10 +7,7 @@ import { Doughnut } from "react-chartjs-2";
 import LoadingIcon from "./LoadingIcon";
 
 // Local visualization module
-import {
-  getPolarizedChat,
-  getMessageCount,
-} from "../modules/visualization/polarize.js";
+import { analyze } from "../modules/visualization/analyzer.js";
 
 // Style
 import "../styles/style.scss";
@@ -20,29 +17,29 @@ function Viz(props) {
   const [loading, setLoading] = useState(true);
 
   // Places to hold information for the graphs
-  const [polarizedChat, setPolarizedChat] = useState(undefined);
-  const [messageCount, setMessageCount] = useState(null);
-  const [caractersCount, setMCaractersCount] = useState(null);
-  const [commonWordsCloud, setCommonWordsCloud] = useState(null);
-  const [monthlyMessageCount, setMonthlyMessageCount] = useState(null);
-  const [messagesPerWeekDay, setMessagesPerWeekDay] = useState(null);
-  const [messagesHourDistrubution, setMessagesHourDistribution] = useState(
-    null
-  );
-  const [mostUsedEmojis, setMostUsedEmojis] = useState(null);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     // TODO: load, extract and analyze data
     // Probably use futures and promises here
     // The next two lines do not work yet
-    // setPolarizedChat(getPolarizedChat(props.chatObject));
-    // setMessageCount(getMessageCount(polarizedChat));
+    try {
+      setStats(analyze(props.chatObject));
 
-    console.log(messageCount);
-    // TODO: set loading to false once finished
-  }, []); // This array is so useEffect doesn't trigger endlessly but once
+      // Set loading to false once finished
+      setLoading(false);
+    } catch (e) {}
+  }, [props.chatObject]);
+  // This array is so useEffect doesn't trigger endlessly but once,
+  // and then when the props.chatObject updates
 
-  return loading ? <LoadingIcon /> : <div></div>;
+  return loading ? (
+    <LoadingIcon />
+  ) : (
+    <div>
+      <Doughnut data={stats.messageCount} />
+    </div>
+  );
 }
 
 export default Viz;
