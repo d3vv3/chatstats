@@ -53,7 +53,7 @@ export function getWordCount(polarizedChat) {
     // Iterate polarizedChat keys and see their array length
     Object.keys(polarizedChat).forEach((key) => {
       words[key] = polarizedChat[key].reduce(totalWords, 0);
-      console.log(words);
+      // console.log(words);
     });
 
     // Scalable way of generating colors
@@ -77,7 +77,7 @@ export function getWordCount(polarizedChat) {
 
 function totalWords(total, msg) {
     var nWords = msg.text.split(/[^a-zA-Z]+/).length;
-    console.log(msg.text);
-    console.log(nWords)
+    // console.log(msg.text);
+    // console.log(nWords)
     return total + nWords;
 }

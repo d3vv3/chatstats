@@ -1,8 +1,9 @@
 export function processTxt(fileContentString) {
-  var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - (.*): (.*))/;
+  var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([ \w]*): (.*))/;
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
+  console.log(msgList);
 
   var index = 0;
   var parsedList = [];
