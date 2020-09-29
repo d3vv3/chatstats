@@ -50,13 +50,27 @@ export function getMessageCount(polarizedChat, colors) {
   };
 }
 
-export function getWordCount(polarizedChat, colors) {
+export function getWordList(polarizedChat) {
+    var wordList = {};
+
+    Object.keys(polarizedChat).forEach((key) => {
+      wordList[key] = polarizedChat[key].map((msg) => {
+          return msg.text.split(/[^a-zA-Z]+/);
+      });
+    });
+    console.log(wordList);
+
+    return wordList;
+}
+
+export function getWordCount(wordList, colors) {
   var words = {};
 
   // Iterate polarizedChat keys and see their array length
-  Object.keys(polarizedChat).forEach((key) => {
-    words[key] = polarizedChat[key].reduce(totalWords, 0);
-    console.log(words);
+  Object.keys(wordList).forEach((key) => {
+    words[key] = wordList[key].reduce((total, msg) => {
+        return total + msg.length;
+    }, 0);
   });
 
   return {
@@ -69,11 +83,4 @@ export function getWordCount(polarizedChat, colors) {
       },
     ],
   };
-}
-
-function totalWords(total, msg) {
-  var nWords = msg.text.split(/[^a-zA-Z]+/).length;
-  console.log(msg.text);
-  console.log(nWords);
-  return total + nWords;
 }
