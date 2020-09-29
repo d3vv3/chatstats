@@ -50,27 +50,59 @@ export function getMessageCount(polarizedChat, colors) {
   };
 }
 
-export function getWordList(polarizedChat) {
-    var wordList = {};
+export function getSuperStrings(polarizedChat) {
+    var superStrings = {};
 
     Object.keys(polarizedChat).forEach((key) => {
-      wordList[key] = polarizedChat[key].map((msg) => {
-          return msg.text.split(/[^a-zA-Z]+/);
-      });
+      superStrings[key] = polarizedChat[key].reduce((total, msg) => {
+          // return msg.text.split(/[^a-zA-Z]+/);
+          return total.concat(msg.text + "\n");
+      }, "");
     });
-    console.log(wordList);
+    console.log(superStrings);
+
+    return superStrings;
+}
+
+export function getCharCount(superStrings, colors) {
+  var chars = {};
+
+  // Iterate polarizedChat keys and see their array length
+  Object.keys(superStrings).forEach((key) => {
+    chars[key] = superStrings[key].length;
+  });
+
+  return {
+    labels: Object.keys(chars),
+    datasets: [
+      {
+        data: Object.values(chars),
+        backgroundColor: colors,
+        // hoverBackgroundCOlor: colors,
+      },
+    ],
+  };
+}
+
+export function getWordList(superStrings) {
+    var wordList = {};
+
+    Object.keys(superStrings).forEach((key) => {
+        wordList[key] = superStrings[key].split(/[^a-zA-Z]+/);
+        console.log(wordList);
+    });
 
     return wordList;
 }
 
-export function getWordCount(wordList, colors) {
+export function getWordAvg(polarizedChat, wordList, colors) {
   var words = {};
 
   // Iterate polarizedChat keys and see their array length
   Object.keys(wordList).forEach((key) => {
-    words[key] = wordList[key].reduce((total, msg) => {
-        return total + msg.length;
-    }, 0);
+      var msgs = polarizedChat[key].length
+      var total = wordList[key].length;
+      words[key] = total/msgs
   });
 
   return {
@@ -78,6 +110,28 @@ export function getWordCount(wordList, colors) {
     datasets: [
       {
         data: Object.values(words),
+        backgroundColor: colors,
+        // hoverBackgroundCOlor: colors,
+      },
+    ],
+  };
+}
+
+export function getCharAvg(polarizedChat, superStrings, colors) {
+  var chars = {};
+
+  // Iterate polarizedChat keys and see their array length
+  Object.keys(polarizedChat).forEach((key) => {
+    var msgs = polarizedChat[key].length
+    var total = superStrings[key].length;
+    chars[key] = total/msgs
+  });
+
+  return {
+    labels: Object.keys(chars),
+    datasets: [
+      {
+        data: Object.values(chars),
         backgroundColor: colors,
         // hoverBackgroundCOlor: colors,
       },

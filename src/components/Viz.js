@@ -39,7 +39,9 @@ function Viz(props) {
   ) : (
     <div>
       <Doughnut data={stats.messageCount} />
-      <Doughnut data={stats.wordCount} />
+      <Doughnut data={stats.charCount} />
+      <Doughnut data={stats.wordAvg} />
+      <Doughnut data={stats.charAvg} />
     </div>
   );
 }
