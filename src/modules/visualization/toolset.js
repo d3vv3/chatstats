@@ -44,7 +44,7 @@ export function getMessageCount(polarizedChat, colors) {
       {
         data: Object.values(nonChatjsResult),
         backgroundColor: colors,
-        hoverBackgroundColor: colors,
+        // hoverBackgroundColor: colors,
       },
     ],
   };
@@ -65,7 +65,7 @@ export function getWordCount(polarizedChat, colors) {
       {
         data: Object.values(words),
         backgroundColor: colors,
-        hoverBackgroundCOlor: colors,
+        // hoverBackgroundCOlor: colors,
       },
     ],
   };

@@ -25,7 +25,6 @@ function Viz(props) {
     // The next two lines do not work yet
     try {
       setStats(analyze(props.chatObject));
-
       // Set loading to false once finished
       setLoading(false);
     } catch (e) {
