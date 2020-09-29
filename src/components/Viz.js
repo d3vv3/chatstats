@@ -40,6 +40,7 @@ function Viz(props) {
   ) : (
     <div>
       <Doughnut data={stats.messageCount} />
+      <Doughnut data={stats.wordCount} />
     </div>
   );
 }

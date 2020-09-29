@@ -10,7 +10,7 @@ export function messageParser(fileContentString, fileName) {
   if (isTxt.test(fileName)) {
     try {
       var chat = processTxt(fileContentString);
-      console.log(chat);
+      // console.log(chat);
       return chat;
     } catch (e) {
       console.error("Are you sure the file is a valid chat?");
@@ -21,7 +21,7 @@ export function messageParser(fileContentString, fileName) {
     try {
       // eslint-disable-next-line
       var chat = processJson(fileContentString);
-      console.log(chat);
+      // console.log(chat);
       return chat;
     } catch (e) {
       console.error("Are you sure the file is a valid chat?");

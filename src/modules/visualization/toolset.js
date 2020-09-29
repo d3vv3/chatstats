@@ -46,3 +46,38 @@ export function getMessageCount(polarizedChat) {
     ],
   };
 }
+
+export function getWordCount(polarizedChat) {
+    var words = {}
+
+    // Iterate polarizedChat keys and see their array length
+    Object.keys(polarizedChat).forEach((key) => {
+      words[key] = polarizedChat[key].reduce(totalWords, 0);
+      console.log(words);
+    });
+
+    // Scalable way of generating colors
+    var colors = randomColor({
+      count: Object.keys(polarizedChat).length,
+      hue: "red",
+      luminosity: "bright",
+    });
+
+    return {
+        labels: Object.keys(words),
+        datasets: [
+            {
+                data: Object.values(words),
+                backgroundColor: colors,
+                hoverBackgroundCOlor: colors,
+            },
+        ],
+    };
+}
+
+function totalWords(total, msg) {
+    var nWords = msg.text.split(/[^a-zA-Z]+/).length;
+    console.log(msg.text);
+    console.log(nWords)
+    return total + nWords;
+}
