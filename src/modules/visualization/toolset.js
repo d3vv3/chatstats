@@ -18,20 +18,23 @@ export function getPolarizedChat(chatObject) {
   return result;
 }
 
+// Scalable way of generating colors
+export function getRandomColors(polarizedChat) {
+  var colors = randomColor({
+    count: Object.keys(polarizedChat).length,
+    luminosity: "light",
+  });
+
+  return colors;
+}
+
 // Returns number of messages per contact
-export function getMessageCount(polarizedChat) {
+export function getMessageCount(polarizedChat, colors) {
   var nonChatjsResult = {};
 
   // Iterate polarizedChat keys and see their array length
   Object.keys(polarizedChat).forEach((key) => {
     nonChatjsResult[key] = polarizedChat[key].length;
-  });
-
-  // Scalable way of generating colors
-  var colors = randomColor({
-    count: Object.keys(polarizedChat).length,
-    hue: "purple",
-    luminosity: "bright",
   });
 
   // Result should have a format Chartjs Doughnut wants
@@ -47,37 +50,30 @@ export function getMessageCount(polarizedChat) {
   };
 }
 
-export function getWordCount(polarizedChat) {
-    var words = {}
+export function getWordCount(polarizedChat, colors) {
+  var words = {};
 
-    // Iterate polarizedChat keys and see their array length
-    Object.keys(polarizedChat).forEach((key) => {
-      words[key] = polarizedChat[key].reduce(totalWords, 0);
-      console.log(words);
-    });
+  // Iterate polarizedChat keys and see their array length
+  Object.keys(polarizedChat).forEach((key) => {
+    words[key] = polarizedChat[key].reduce(totalWords, 0);
+    console.log(words);
+  });
 
-    // Scalable way of generating colors
-    var colors = randomColor({
-      count: Object.keys(polarizedChat).length,
-      hue: "red",
-      luminosity: "bright",
-    });
-
-    return {
-        labels: Object.keys(words),
-        datasets: [
-            {
-                data: Object.values(words),
-                backgroundColor: colors,
-                hoverBackgroundCOlor: colors,
-            },
-        ],
-    };
+  return {
+    labels: Object.keys(words),
+    datasets: [
+      {
+        data: Object.values(words),
+        backgroundColor: colors,
+        hoverBackgroundCOlor: colors,
+      },
+    ],
+  };
 }
 
 function totalWords(total, msg) {
-    var nWords = msg.text.split(/[^a-zA-Z]+/).length;
-    console.log(msg.text);
-    console.log(nWords)
-    return total + nWords;
+  var nWords = msg.text.split(/[^a-zA-Z]+/).length;
+  console.log(msg.text);
+  console.log(nWords);
+  return total + nWords;
 }
