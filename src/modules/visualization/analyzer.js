@@ -22,8 +22,9 @@ export function analyze(chatObject) {
   var wordAvg = getWordAvg(polarizedChat, wordList, colors);
   var charAvg = getCharAvg(polarizedChat, superStrings, colors);
   var polarizedDates = polarizeByDate(polarizedChat);
-  console.log(polarizedDates);
-  var messagesMonth = getMessagesMonth(polarizedDates["chat"], polarizedDates["months"], Array.from(colors));
+  var messagesMonth = getMessagesMonth(
+      polarizedDates["chat"], polarizedDates["months"], Array.from(colors)
+  );
 
   return {
     messageCount: messageCount,

@@ -150,7 +150,6 @@ export function getMessagesMonth(polarizedDates, months, colors) {
             : chat[user][month] = 0;
         });
     });
-    console.log(chat);
 
     return {
       labels: months,
