@@ -3,7 +3,7 @@ export function processTxt(fileContentString) {
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
-  console.log(msgList);
+  // console.log(msgList);
 
   var index = 0;
   var parsedList = [];
@@ -32,7 +32,7 @@ function parseMessage(msg) {
 
     else {
         var msgObject = {
-            date: msg[0],
+            date: formatDate(msg[0]),
             from: msg[1],
             text: msg[2].concat(msg[3]),
             type: 'message',
@@ -65,4 +65,16 @@ function getMediaType(text) {
         return null;
     }
 
+}
+
+function formatDate(date) {
+    var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2}), ([0-9]{2}:[0-9]{2})/;
+    var parseDate = patt.exec(date);
+
+    parseDate[1] = ("0" + parseDate[1]).slice(-2);
+    parseDate[2] = ("0" + parseDate[2]).slice(-2);
+
+    return new Date(
+        "20"+parseDate[3]+"-"+parseDate[1]+"-"+parseDate[2]+"T"+parseDate[4]+":00"
+    );
 }

@@ -6,6 +6,8 @@ export function processJson(fileContentString) {
 }
 
 function parseSpecialCases(currentValue) {
+    currentValue.date = new Date(currentValue.date);
+    
     if (typeof currentValue.text === "string"){
         return currentValue;
     }

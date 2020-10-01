@@ -7,6 +7,8 @@ import {
   getWordList,
   getWordAvg,
   getCharAvg,
+  polarizeByDate,
+  getMessagesMonth,
 } from "./toolset.js";
 // var chatObject = require("./result.json");
 
@@ -19,11 +21,15 @@ export function analyze(chatObject) {
   var charCount = getCharCount(superStrings, colors);
   var wordAvg = getWordAvg(polarizedChat, wordList, colors);
   var charAvg = getCharAvg(polarizedChat, superStrings, colors);
+  var polarizedDates = polarizeByDate(polarizedChat);
+  console.log(polarizedDates);
+  var messagesMonth = getMessagesMonth(polarizedDates["chat"], polarizedDates["months"], Array.from(colors));
 
   return {
     messageCount: messageCount,
     charCount: charCount,
     wordAvg: wordAvg,
     charAvg: charAvg,
+    messagesMonth: messagesMonth,
   };
 }

@@ -8,15 +8,15 @@ export function messageParser(fileContentString, fileName) {
 
   // Check the extension of the input file
   if (isTxt.test(fileName)) {
-    try {
+    // try {
       var chat = processTxt(fileContentString);
       // console.log(chat);
       return chat;
-    } catch (e) {
-      console.error("Are you sure the file is a valid chat?");
-      console.debug(e);
-      return null;
-    }
+    // } catch (e) {
+    //   console.error("Are you sure the file is a valid chat?");
+    //   console.debug(e);
+    //   return null;
+    // }
   } else if (isJson.test(fileName)) {
     try {
       // eslint-disable-next-line

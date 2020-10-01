@@ -59,7 +59,6 @@ export function getSuperStrings(polarizedChat) {
           return total.concat(msg.text + "\n");
       }, "");
     });
-    console.log(superStrings);
 
     return superStrings;
 }
@@ -89,7 +88,6 @@ export function getWordList(superStrings) {
 
     Object.keys(superStrings).forEach((key) => {
         wordList[key] = superStrings[key].split(/[^a-zA-Z]+/);
-        console.log(wordList);
     });
 
     return wordList;
@@ -137,4 +135,62 @@ export function getCharAvg(polarizedChat, superStrings, colors) {
       },
     ],
   };
+}
+
+export function getMessagesMonth(polarizedDates, months, colors) {
+    var chat = {};
+    var color = -1;
+
+    Object.keys(polarizedDates).forEach((user) => {
+        chat[user] = {};
+
+        months.forEach((month) => {
+            polarizedDates[user][month] != null
+            ? chat[user][month] = polarizedDates[user][month].length
+            : chat[user][month] = 0;
+        });
+    });
+    console.log(chat);
+
+    return {
+      labels: months,
+      datasets: Object.keys(chat).map((key) => {
+          color++;
+          return {
+              label: key,
+              data: Object.values(chat[key]),
+              type: "bar",
+              backgroundColor: colors[color],
+          }
+      }),
+    };
+}
+
+export function polarizeByDate(polarizedChat) {
+    var result = {};
+    var months = []
+
+    Object.keys(polarizedChat).forEach((key => {
+        result[key] = {};
+        try {
+
+            for(let msg of polarizedChat[key]) {
+
+                var month = msg.date.getMonth() + 1;
+                var year = msg.date.getFullYear();
+                var date = month + "/" + year;
+
+                if (months.indexOf(date) === -1) {
+                    months.push(date);
+                }
+
+                result[key][date] != null
+                ? result[key][date].push(msg)
+                : (result[key][date] = [msg]);
+
+            }
+        } catch(e) {}
+    }))
+
+    return {chat: result, months: months};
 }

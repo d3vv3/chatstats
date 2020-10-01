@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // External chartjs imports
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 
 // Local imports
 import LoadingIcon from "./LoadingIcon";
@@ -42,6 +42,7 @@ function Viz(props) {
       <Doughnut data={stats.charCount} />
       <Doughnut data={stats.wordAvg} />
       <Doughnut data={stats.charAvg} />
+      <Bar data={stats.messagesMonth} />
     </div>
   );
 }
