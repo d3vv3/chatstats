@@ -43,6 +43,8 @@ function Viz(props) {
       <Doughnut data={stats.wordAvg} />
       <Doughnut data={stats.charAvg} />
       <Bar data={stats.messagesMonth} />
+      <Bar data={stats.messagesDay} />
+      <Bar data={stats.messagesHour} />
     </div>
   );
 }
