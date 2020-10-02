@@ -1,6 +1,6 @@
 .viz-container {
   @include flexCenter(column);
-  color: black;
+  color: white;
   width: 100vw;
 
   h2 {
@@ -9,8 +9,11 @@
 
   .stat-item {
     @include flexCenter(column);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
   }
 
   .flex-row {

@@ -1,5 +1,5 @@
 // Returns number of messages per contact
-export function getMessageCount(polarizedChat, colors) {
+export function getMessageCount(polarizedChat, fillColors, lineColors) {
   var nonChatjsResult = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -13,14 +13,15 @@ export function getMessageCount(polarizedChat, colors) {
     datasets: [
       {
         data: Object.values(nonChatjsResult),
-        backgroundColor: colors,
+        backgroundColor: fillColors,
+        borderColor: lineColors,
         // hoverBackgroundColor: colors,
       },
     ],
   };
 }
 
-export function getCharCount(superStrings, colors) {
+export function getCharCount(superStrings, fillColors, lineColors) {
   var chars = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -33,7 +34,8 @@ export function getCharCount(superStrings, colors) {
     datasets: [
       {
         data: Object.values(chars),
-        backgroundColor: colors,
+        backgroundColor: fillColors,
+        borderColor: lineColors,
         // hoverBackgroundCOlor: colors,
       },
     ],

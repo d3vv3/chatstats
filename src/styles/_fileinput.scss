@@ -1,11 +1,8 @@
-$primary-color: black;
-$secondary-color: red;
-
 .input-container {
   @include flexCenter(column);
 
   h3 {
-    color: black;
+    color: white;
     max-width: 80vw;
     justify-content: center;
     align-items: center;

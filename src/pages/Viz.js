@@ -125,7 +125,7 @@ function Viz(props) {
         </div>
         <div className="stat-item">
           <h2> Most used emojis </h2>
-          <p>A emoji cloud with most used emojis bigger. </p>
+          <p>An emoji cloud with most used emojis bigger. </p>
           <ReactWordcloud
             options={stats.cloudOptions}
             words={stats.topEmojis}

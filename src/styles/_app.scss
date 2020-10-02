@@ -3,21 +3,7 @@
   min-height: 100vh;
   min-width: 100%;
   color: white;
+  overflow-y: hidden;
 
-  // Default to black if gradient doesnt load
-  background-color: black;
-
-  // Fallback gradient because fuck Mozilla Firefox
-  // https://bugzilla.mozilla.org/show_bug.cgi?id=1175958
-  background-image: linear-gradient(
-    140deg,
-    $fallbackLinearFrom,
-    $fallbackLinearTo
-  );
-  // Nice conic gradient background on the left
-  background-image: conic-gradient(
-    from 180deg at left,
-    $backGradientFrom,
-    $backGradientTo
-  );
+  background-color: #121212;
 }

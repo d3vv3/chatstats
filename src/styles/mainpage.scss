@@ -8,12 +8,12 @@
     margin: 0;
     font-size: 14vw;
 
-    // Fallback to black
-    color: black;
+    // Fallback to white
+    color: white;
 
     .gradient-text {
       // Fallback color if gradient doesnt load
-      background-color: black;
+      background-color: white;
       // Gradient to overlay on text span
       background-image: linear-gradient(140deg, $backColor1, $backColor2);
 
@@ -28,14 +28,18 @@
   h2 {
     width: 60vw;
     margin: 0;
-    color: black;
+    color: white;
     text-align: center;
   }
 
   p {
     width: 60vw;
-    color: black;
+    color: white;
 
     text-align: center;
+  }
+
+  a {
+    color: white;
   }
 }
