@@ -1,0 +1,38 @@
+.viz-container {
+  @include flexCenter(column);
+  color: black;
+  width: 100vw;
+
+  h2 {
+    margin: 0;
+  }
+
+  .stat-item {
+    @include flexCenter(column);
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .flex-row {
+    @include flexCenter(row);
+    flex-wrap: wrap;
+    width: 100vw;
+  }
+
+  // Temporary
+  canvas {
+    border: 1px dotted red;
+  }
+
+  .chart-container {
+    position: relative;
+    margin: auto;
+    height: 30vh;
+    width: 40vw;
+
+    @media only screen and (max-width: 600px) {
+      height: 60vh;
+      width: 80vw;
+    }
+  }
+}

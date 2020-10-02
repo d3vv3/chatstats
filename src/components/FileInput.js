@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { processFile } from "../modules/parser/fileReader.js";
+import { withRouter } from "react-router-dom";
 
 // Style
 import "../styles/style.scss";
@@ -24,17 +25,24 @@ function FileInput(props) {
   };
 
   const submitForm = (event) => {
-    console.log("File submited!");
+    // Avoid the classic submit redirection
+    event.preventDefault();
     // Set app state to chatObject
     processFile(fileContent, fileName, props.setChatObject);
-    // Change app state to loading
-    props.handler(1);
+    console.log("File submited!");
+    // Push to the next page
+    props.history.push("/graphs");
     return null;
   };
 
   return (
     <div className="input-container">
-      <form method="post" action="#" onSubmit={submitForm.bind(this)}>
+      <form
+        className="input-container"
+        method="get"
+        action="/graphs"
+        onSubmit={submitForm.bind(this)}
+      >
         <input
           className="inputfile"
           type="file"
@@ -46,18 +54,19 @@ function FileInput(props) {
         <label htmlFor="file">
           <FontAwesomeIcon icon={faUpload} /> Select chat
         </label>
+        <h3>{fileName}</h3>
+        {
+          //Conditionally render "Go!" button if chat file selected
+        }
+        {fileName != null ? (
+          <button className="go-button" type="submit">
+            Go!
+          </button>
+        ) : null}
       </form>
-      <h3>{fileName}</h3>
-      {
-        //Conditionally render "Go!" button if chat file selected
-      }
-      {fileName != null ? (
-        <button className="go-button" onClick={submitForm.bind(this)}>
-          Go!
-        </button>
-      ) : null}
     </div>
   );
 }
 
-export default FileInput;
+// This is so the component can redirect pushing to the browser history
+export default withRouter(FileInput);

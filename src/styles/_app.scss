@@ -20,45 +20,4 @@
     $backGradientFrom,
     $backGradientTo
   );
-
-  .landing-container {
-    margin: 0;
-    @include flexCenter(column);
-    height: 100vh;
-  }
-
-  h1 {
-    padding: 20px;
-    margin: 0;
-    font-size: 14vw;
-
-    // Fallback to black
-    color: black;
-
-    .gradient-text {
-      // Fallback color if gradient doesnt load
-      background-color: black;
-      // Gradient to overlay on text span
-      background-image: linear-gradient(140deg, $backColor1, $backColor2);
-
-      // Tricks to clip the overlay onto the text
-      -webkit-background-clip: text;
-      -moz-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -moz-text-fill-color: transparent;
-    }
-  }
-
-  h2 {
-    width: 60vw;
-    color: black;
-    text-align: center;
-  }
-
-  p {
-    width: 60vw;
-    color: black;
-
-    text-align: center;
-  }
 }
