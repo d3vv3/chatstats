@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 // External chartjs imports
 import { Doughnut, Bar } from "react-chartjs-2";
 
+import ReactWordcloud from 'react-wordcloud';
+
 // Local imports
 import LoadingIcon from "./LoadingIcon";
 
@@ -45,6 +47,9 @@ function Viz(props) {
       <Bar data={stats.messagesMonth} />
       <Bar data={stats.messagesDay} />
       <Bar data={stats.messagesHour} />
+      <div style={{ height: 400, width: 600 }}>
+          <ReactWordcloud options= {stats.cloudOptions} words={stats.topWords} />
+      </div>
     </div>
   );
 }
