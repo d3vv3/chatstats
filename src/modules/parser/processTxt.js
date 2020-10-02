@@ -5,19 +5,23 @@ export function processTxt(fileContentString) {
   var msgList = fileContentString.split(patt);
   // console.log(msgList);
 
-  var index = 0;
   var parsedList = [];
+  var aux = [];
 
-  while(index > -1) {
-      index = msgList.findIndex((value) => {return patt.test(value)})
+  msgList.forEach((elem) => {
 
-      var msg = parseMessage(msgList.slice(0, index));
-      if (msg !== null) {
-          parsedList.push(msg);
+      if (patt.test(elem)) {
+          var msg = parseMessage(aux);
+          if (msg != null) {
+              parsedList.push(msg);
+          }
+          aux = [];
       }
 
-      msgList = msgList.slice(index+1);
-  }
+      else {
+          aux.push(elem);
+      }
+  });
 
   // Acommodate format to Telegram chats
   var chat = { messages: parsedList, name: "Whatsapp chat" };
