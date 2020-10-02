@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // External chartjs imports
 import { Doughnut, Bar } from "react-chartjs-2";
+import ReactWordcloud from "react-wordcloud";
 
 // Local imports
 import LoadingIcon from "../components/LoadingIcon";
@@ -85,7 +86,7 @@ function Viz(props) {
       <div className="flex-row">
         <div className="stat-item">
           <h2> Monthly distribution </h2>
-          <p>Messages sent per month by each contact </p>
+          <p>Messages sent per month by each contact. </p>
           <div className="chart-container">
             <Bar
               data={stats.messagesMonth}
@@ -95,7 +96,7 @@ function Viz(props) {
         </div>
         <div className="stat-item">
           <h2> Weekday distribution </h2>
-          <p>Distribution sent per weekday per contact </p>
+          <p>Distribution sent per weekday per contact. </p>
           <div className="chart-container">
             <Bar
               data={stats.messagesDay}
@@ -107,13 +108,28 @@ function Viz(props) {
       <div className="flex-row">
         <div className="stat-item">
           <h2> Hourly distribution </h2>
-          <p>Distribution of messages per hour per contact </p>
+          <p>Distribution of messages per hour per contact. </p>
           <div className="chart-container">
             <Bar
               data={stats.messagesHour}
               options={{ maintainAspectRatio: false }}
             />
           </div>
+        </div>
+      </div>
+      <div className="flex-row">
+        <div className="stat-item">
+          <h2> Most used words </h2>
+          <p>A word cloud with most used words bigger. </p>
+          <ReactWordcloud options={stats.cloudOptions} words={stats.topWords} />
+        </div>
+        <div className="stat-item">
+          <h2> Most used emojis </h2>
+          <p>A emoji cloud with most used emojis bigger. </p>
+          <ReactWordcloud
+            options={stats.cloudOptions}
+            words={stats.topEmojis}
+          />
         </div>
       </div>
     </div>

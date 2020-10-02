@@ -1,14 +1,34 @@
 import {
-    getPolarizedChat, polarizeByMonth, polarizeByDay, polarizeByHour
+    getPolarizedChat,
+    polarizeByMonth,
+    polarizeByDay,
+    polarizeByHour
 } from "./polarizer.js";
-
-import { getRandomColors, getSuperStrings, getWordList } from "./helpers.js";
-import { getMessageCount, getCharCount } from "./toolset/counts.js";
-import { getWordAvg, getCharAvg } from "./toolset/averages.js";
+import {
+    getRandomColors,
+    getSuperStrings,
+    getWordList,
+    getEmojiList,
+    getWordRepetition,
+    getCloudOptions
+} from "./helpers.js";
 
 import {
-    getMessagesMonth, getMessagesDay, getMessagesHour
+    getMessageCount,
+    getCharCount
+} from "./toolset/counts.js";
+import {
+    getWordAvg,
+    getCharAvg
+} from "./toolset/averages.js";
+import {
+    getMessagesMonth,
+    getMessagesDay,
+    getMessagesHour
 } from "./toolset/time.js";
+import {
+    getTopWords
+} from "./toolset/repetitions.js"
 
 export function analyze(chatObject) {
   var polarizedChat = getPolarizedChat(chatObject);
@@ -17,6 +37,11 @@ export function analyze(chatObject) {
   // Helpers
   var superStrings = getSuperStrings(polarizedChat);
   var wordList = getWordList(superStrings);
+  var emojiList = getEmojiList(superStrings);
+  var wordRepetition = getWordRepetition(wordList);
+  var emojiRepetition = getWordRepetition(emojiList);
+  console.log(emojiList);
+  console.log(emojiRepetition);
 
   // Counts
   var messageCount = getMessageCount(polarizedChat, colors);
@@ -41,6 +66,12 @@ export function analyze(chatObject) {
       polarizedHours["chat"], polarizedHours["hours"], Array.from(colors)
   );
 
+  // Most repetitions
+  const cloudOptions = getCloudOptions();
+  var topWords = getTopWords(wordRepetition);
+  var topEmojis = getTopWords(emojiRepetition);
+  console.log(topEmojis);
+
   return {
     messageCount: messageCount,
     charCount: charCount,
@@ -49,5 +80,8 @@ export function analyze(chatObject) {
     messagesMonth: messagesMonth,
     messagesDay: messagesDay,
     messagesHour: messagesHour,
+    topWords: topWords,
+    topEmojis: topEmojis,
+    cloudOptions: cloudOptions
   };
 }
