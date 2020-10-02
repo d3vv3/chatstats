@@ -50,6 +50,9 @@ function Viz(props) {
       <div style={{ height: 400, width: 600 }}>
           <ReactWordcloud options= {stats.cloudOptions} words={stats.topWords} />
       </div>
+      <div style={{ height: 400, width: 600 }}>
+          <ReactWordcloud options= {stats.cloudOptions} words={stats.topEmojis} />
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "chart.js": "^2.9.3",
+    "emoji-regex": "^9.0.0",
     "node-sass": "^4.14.1",
     "randomcolor": "^0.6.2",
     "react": "^16.13.1",

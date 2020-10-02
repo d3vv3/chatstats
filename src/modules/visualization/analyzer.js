@@ -8,6 +8,7 @@ import {
     getRandomColors,
     getSuperStrings,
     getWordList,
+    getEmojiList,
     getWordRepetition,
     getCloudOptions
 } from "./helpers.js";
@@ -36,8 +37,11 @@ export function analyze(chatObject) {
   // Helpers
   var superStrings = getSuperStrings(polarizedChat);
   var wordList = getWordList(superStrings);
+  var emojiList = getEmojiList(superStrings);
   var wordRepetition = getWordRepetition(wordList);
-  console.log(wordRepetition);
+  var emojiRepetition = getWordRepetition(emojiList);
+  console.log(emojiList);
+  console.log(emojiRepetition);
 
   // Counts
   var messageCount = getMessageCount(polarizedChat, colors);
@@ -65,6 +69,8 @@ export function analyze(chatObject) {
   // Most repetitions
   const cloudOptions = getCloudOptions();
   var topWords = getTopWords(wordRepetition);
+  var topEmojis = getTopWords(emojiRepetition);
+  console.log(topEmojis);
 
   return {
     messageCount: messageCount,
@@ -75,6 +81,7 @@ export function analyze(chatObject) {
     messagesDay: messagesDay,
     messagesHour: messagesHour,
     topWords: topWords,
+    topEmojis: topEmojis,
     cloudOptions: cloudOptions
   };
 }
