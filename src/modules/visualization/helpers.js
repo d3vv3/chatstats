@@ -4,7 +4,6 @@ const emojiRegex = require("emoji-regex");
 
 // Scalable way of generating colors
 export function getRandomColors(polarizedChat) {
-  console.log("ENTRING");
   var colors = randomColor({
     count: Object.keys(polarizedChat).length,
     luminosity: "light",
@@ -23,7 +22,6 @@ export function getRandomColors(polarizedChat) {
   var fill = unique.map(function (hex) {
     return hexToRgba(hex, 0.75);
   });
-  console.log("EXITING");
   return [fill, unique];
 }
 
