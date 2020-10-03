@@ -61,10 +61,8 @@ export function getEmojiList(superStrings) {
   var emojiPatt = emojiRegex();
 
   Object.keys(superStrings).forEach((key) => {
-    console.log(superStrings[key].match(emojiPatt));
     emojiList[key] = superStrings[key].match(emojiPatt);
   });
-  console.log(emojiList);
 
   return emojiList;
 }
