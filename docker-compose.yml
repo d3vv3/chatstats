@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  chatstats:
+    build: .
+    image: chatstats
+    restart: unless-stopped
+    ports:
+      - 5001:5000
