@@ -63,6 +63,7 @@ export function getEmojiList(superStrings) {
   Object.keys(superStrings).forEach((key) => {
     emojiList[key] = superStrings[key].match(emojiPatt);
   });
+  console.log(emojiList);
 
   return emojiList;
 }
@@ -77,14 +78,17 @@ function notCommonWord(word) {
   return !result;
 }
 
-export function getWordRepetition(wordList) {
+export function getWordRepetition(wordList, isEmoji) {
   var wordRepetition = {};
   Object.keys(wordList).forEach((key) => {
     try {
       wordList[key].forEach((word) => {
-        wordRepetition[word] != null && notCommonWord(word)
-          ? ++wordRepetition[word]
-          : (wordRepetition[word] = 1);
+          if (notCommonWord(word) || isEmoji) {
+              wordRepetition[word] != null
+              ? ++wordRepetition[word]
+              : (wordRepetition[word] = 1);
+          }
+
       });
     } catch (e) {}
   });

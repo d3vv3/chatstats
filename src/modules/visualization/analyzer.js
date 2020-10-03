@@ -33,8 +33,8 @@ export function analyze(chatObject) {
   var superStrings = getSuperStrings(polarizedChat);
   var wordList = getWordList(superStrings);
   var emojiList = getEmojiList(superStrings);
-  var wordRepetition = getWordRepetition(wordList);
-  var emojiRepetition = getWordRepetition(emojiList);
+  var wordRepetition = getWordRepetition(wordList, false);
+  var emojiRepetition = getWordRepetition(emojiList, true);
 
   // Counts
   var messageCount = getMessageCount(polarizedChat, fillColors, lineColors);
