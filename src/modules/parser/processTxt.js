@@ -1,9 +1,9 @@
 export function processTxt(fileContentString) {
-  var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([^:]*): (.*))/;
+  // var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([^:]*): (.*))/;
+  var patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
-  // console.log(msgList);
 
   var parsedList = [];
   var aux = [];
@@ -41,7 +41,12 @@ function parseMessage(msg) {
             text: msg[2].concat(msg[3]),
             type: 'message',
             media_type: getMediaType(msg[2]), // Telegram compatibility
-            photo: /.jpg \(file attached\)$/.test(msg[2]) ? 'yes' : null,
+            photo: /.jpg \(file attached\)$/.test(msg[2])
+            || /\.jpg>$/.test(msg[2]) ? 'yes' : null,
+        }
+
+        if (isNaN(msgObject.date.getMonth())) {
+            console.log(msg[0]);
         }
         return msgObject;
     }
@@ -53,15 +58,15 @@ function getMediaType(text) {
         return "unknown";
     }
 
-    else if (/.opus \(file attached\)$/.test(text)) {
+    else if (/\.opus \(file attached\)$/.test(text) || /\.opus>$/.test(text)) {
         return "voice_message";
     }
 
-    else if (/.mp4 \(file attached\)$/.test(text)) {
+    else if (/\.mp4 \(file attached\)$/.test(text) || /\.mp4>$/.test(text)) {
         return "video_file";
     }
 
-    else if (/.webp \(file attached\)$/.test(text)) {
+    else if (/\.webp \(file attached\)$/.test(text) || /\.webp>$/.test(text)) {
         return "sticker";
     }
 
@@ -72,13 +77,22 @@ function getMediaType(text) {
 }
 
 function formatDate(date) {
-    var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2}), ([0-9]{2}:[0-9]{2})/;
+    var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2}), ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
     var parseDate = patt.exec(date);
 
     parseDate[1] = ("0" + parseDate[1]).slice(-2);
     parseDate[2] = ("0" + parseDate[2]).slice(-2);
 
+    if (parseDate.length === 4) {
+        parseDate.push(":00");
+        return new Date(
+            "20" + parseDate[3] + "-" + parseDate[2] + "-" + parseDate[1] + "T"
+            + parseDate[4] + parseDate[5]
+        );
+    }
+
     return new Date(
-        "20"+parseDate[3]+"-"+parseDate[1]+"-"+parseDate[2]+"T"+parseDate[4]+":00"
+        "20" + parseDate[3] + "-" + parseDate[2] + "-" + parseDate[1] + "T"
+        + parseDate[4] + parseDate[5]
     );
 }

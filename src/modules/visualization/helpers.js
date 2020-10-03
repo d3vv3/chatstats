@@ -63,7 +63,6 @@ export function getEmojiList(superStrings) {
   Object.keys(superStrings).forEach((key) => {
     emojiList[key] = superStrings[key].match(emojiPatt);
   });
-  console.log(emojiList);
 
   return emojiList;
 }
