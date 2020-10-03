@@ -1,6 +1,7 @@
 .loading-container {
   margin: 0;
   height: 100vh;
+  color: white;
   @include flexCenter(column);
 }
 
@@ -16,7 +17,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: black;
+  background: white;
   background-image: linear-gradient(140deg, $backColor1, $backColor2);
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
