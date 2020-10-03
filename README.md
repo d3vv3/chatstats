@@ -21,9 +21,9 @@ Built using [Reactjs](https://reactjs.org/) and [Chartjs](https://github.com/jer
 
 ## To Do:
 
-- [x] Filter English and Spanish common words
-- [ ] Multimedia statistics
+- [x] Filter English and Spanish common words.
+- [ ] Multimedia statistics.
 - [ ] Get Dockerfile and docker-compose.yml ready.
-- [ ] Check emoji accuracy.
+- [ ] Check emoji accuracy (maybe depends on client emoji font).
 - [ ] Second theme (scss) with switch.
 - [ ] Unzip iPhone Whatsapp exports (it does it that way).
