@@ -1,3 +1,5 @@
+import es_words from "../../common_words/esCommonWords.json";
+import en_words from "../../common_words/enCommonWords.json";
 const randomColor = require("randomcolor");
 const hexToRgba = require("hex-to-rgba");
 const emojiRegex = require("emoji-regex");
@@ -67,12 +69,22 @@ export function getEmojiList(superStrings) {
   return emojiList;
 }
 
+function notCommonWord(word) {
+  var result =
+    es_words.esCommonWords.includes(word.toLowerCase()) ||
+    en_words.enCommonWords.includes(word.toLowerCase()) ||
+    word.length <= 2 ||
+    word.toLowerCase().includes("jaja") ||
+    word.toLowerCase().includes("haha");
+  return !result;
+}
+
 export function getWordRepetition(wordList) {
   var wordRepetition = {};
   Object.keys(wordList).forEach((key) => {
     try {
       wordList[key].forEach((word) => {
-        wordRepetition[word] != null
+        wordRepetition[word] != null && notCommonWord(word)
           ? ++wordRepetition[word]
           : (wordRepetition[word] = 1);
       });
