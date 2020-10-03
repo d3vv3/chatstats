@@ -43,7 +43,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Message Count </h2>
           <p>Ammount of messages sent by each contact.</p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.messageCount.labels.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Doughnut
               data={stats.messageCount}
               options={{ maintainAspectRatio: false }}
@@ -53,7 +59,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Character count </h2>
           <p>Ammount of characters sent by each contact.</p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.charCount.labels.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Doughnut
               data={stats.charCount}
               options={{ maintainAspectRatio: false }}
@@ -65,7 +77,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Average words per message </h2>
           <p>Average words per message by each contact.</p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.wordAvg.labels.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Doughnut
               data={stats.wordAvg}
               options={{ maintainAspectRatio: false }}
@@ -75,7 +93,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Average characters per message </h2>
           <p>Average characters per message by each contact.</p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.charAvg.labels.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Doughnut
               data={stats.charAvg}
               options={{ maintainAspectRatio: false }}
@@ -88,7 +112,13 @@ function Viz(props) {
           <div className="stat-item">
             <h2> Photo Count </h2>
             <p>Ammount of photos sent by each contact.</p>
-            <div className="chart-container">
+            <div
+              className={
+                stats.photoCount.datasets.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
               <Doughnut
                 data={stats.photoCount}
                 options={{ maintainAspectRatio: false }}
@@ -100,7 +130,13 @@ function Viz(props) {
           <div className="stat-item">
             <h2> Video Count </h2>
             <p>Ammount of videos sent by each contact.</p>
-            <div className="chart-container">
+            <div
+              className={
+                stats.videoCount.datasets.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
               <Doughnut
                 data={stats.videoCount}
                 options={{ maintainAspectRatio: false }}
@@ -114,7 +150,13 @@ function Viz(props) {
           <div className="stat-item">
             <h2> Audio Count </h2>
             <p>Ammount of audios sent by each contact.</p>
-            <div className="chart-container">
+            <div
+              className={
+                stats.audioCount.datasets.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
               <Doughnut
                 data={stats.audioCount}
                 options={{ maintainAspectRatio: false }}
@@ -126,7 +168,13 @@ function Viz(props) {
           <div className="stat-item">
             <h2> Sticker Count </h2>
             <p>Ammount of stickers sent by each contact.</p>
-            <div className="chart-container">
+            <div
+              className={
+                stats.stickerCount.datasets.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
               <Doughnut
                 data={stats.stickerCount}
                 options={{ maintainAspectRatio: false }}
@@ -139,7 +187,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Monthly distribution </h2>
           <p>Messages sent per month by each contact. </p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.messagesMonth.datasets.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Bar
               data={stats.messagesMonth}
               options={{ maintainAspectRatio: false }}
@@ -149,7 +203,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Weekday distribution </h2>
           <p>Distribution sent per weekday per contact. </p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.messagesDay.datasets.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Bar
               data={stats.messagesDay}
               options={{ maintainAspectRatio: false }}
@@ -161,7 +221,13 @@ function Viz(props) {
         <div className="stat-item">
           <h2> Hourly distribution </h2>
           <p>Distribution of messages per hour per contact. </p>
-          <div className="chart-container">
+          <div
+            className={
+              stats.messagesHour.datasets.length > 10
+                ? "chart-container bigger"
+                : "chart-container"
+            }
+          >
             <Bar
               data={stats.messagesHour}
               options={{ maintainAspectRatio: false }}
