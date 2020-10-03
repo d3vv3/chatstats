@@ -21,6 +21,7 @@ import {
   getMessagesHour,
 } from "./toolset/time.js";
 import { getTopWords } from "./toolset/repetitions.js";
+import { getPhotoCount, getMediaCount } from "./toolset/media.js";
 
 export function analyze(chatObject) {
   var polarizedChat = getPolarizedChat(chatObject);
@@ -28,17 +29,12 @@ export function analyze(chatObject) {
   var fillColors = colors[0];
   var lineColors = colors[1];
 
-  console.log(fillColors);
-  // console.log(lineColors);
-
   // Helpers
   var superStrings = getSuperStrings(polarizedChat);
   var wordList = getWordList(superStrings);
   var emojiList = getEmojiList(superStrings);
   var wordRepetition = getWordRepetition(wordList);
   var emojiRepetition = getWordRepetition(emojiList);
-  console.log(emojiList);
-  console.log(emojiRepetition);
 
   // Counts
   var messageCount = getMessageCount(polarizedChat, fillColors, lineColors);
@@ -76,7 +72,18 @@ export function analyze(chatObject) {
   const cloudOptions = getCloudOptions();
   var topWords = getTopWords(wordRepetition);
   var topEmojis = getTopWords(emojiRepetition);
-  console.log(topEmojis);
+
+  // Media counts
+  var photoCount = getPhotoCount(polarizedChat, fillColors, lineColors);
+  var videoCount = getMediaCount(
+      polarizedChat, fillColors, lineColors, "video_file"
+  );
+  var audioCount = getMediaCount(
+      polarizedChat, fillColors, lineColors, "voice_message"
+  );
+  var stickerCount = getMediaCount(
+      polarizedChat, fillColors, lineColors, "sticker"
+  );
 
   return {
     messageCount: messageCount,
@@ -89,5 +96,9 @@ export function analyze(chatObject) {
     topWords: topWords,
     topEmojis: topEmojis,
     cloudOptions: cloudOptions,
+    photoCount: photoCount,
+    videoCount: videoCount,
+    audioCount: audioCount,
+    stickerCount: stickerCount,
   };
 }

@@ -84,6 +84,58 @@ function Viz(props) {
         </div>
       </div>
       <div className="flex-row">
+        {stats.photoCount.labels.length !== 0 ? (
+          <div className="stat-item">
+            <h2> Photo Count </h2>
+            <p>Ammount of photos sent by each contact.</p>
+            <div className="chart-container">
+              <Doughnut
+                data={stats.photoCount}
+                options={{ maintainAspectRatio: false }}
+              />
+            </div>
+          </div>
+        ) : null}
+        {stats.videoCount.labels.length !== 0 ? (
+          <div className="stat-item">
+            <h2> Video Count </h2>
+            <p>Ammount of videos sent by each contact.</p>
+            <div className="chart-container">
+              <Doughnut
+                data={stats.videoCount}
+                options={{ maintainAspectRatio: false }}
+              />
+            </div>
+          </div>
+        ) : null}
+      </div>
+      <div className="flex-row">
+        {stats.audioCount.labels.length !== 0 ? (
+          <div className="stat-item">
+            <h2> Audio Count </h2>
+            <p>Ammount of audios sent by each contact.</p>
+            <div className="chart-container">
+              <Doughnut
+                data={stats.audioCount}
+                options={{ maintainAspectRatio: false }}
+              />
+            </div>
+          </div>
+        ) : null}
+        {stats.stickerCount.labels.length !== 0 ? (
+          <div className="stat-item">
+            <h2> Sticker Count </h2>
+            <p>Ammount of stickers sent by each contact.</p>
+            <div className="chart-container">
+              <Doughnut
+                data={stats.stickerCount}
+                options={{ maintainAspectRatio: false }}
+              />
+            </div>
+          </div>
+        ) : null}
+      </div>
+      <div className="flex-row">
         <div className="stat-item">
           <h2> Monthly distribution </h2>
           <p>Messages sent per month by each contact. </p>
