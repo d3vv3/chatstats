@@ -45,9 +45,6 @@ function parseMessage(msg) {
             || /\.jpg>$/.test(msg[2]) ? 'yes' : null,
         }
 
-        if (isNaN(msgObject.date.getMonth())) {
-            console.log(msg[0]);
-        }
         return msgObject;
     }
 
@@ -83,11 +80,11 @@ function formatDate(date) {
     parseDate[1] = ("0" + parseDate[1]).slice(-2);
     parseDate[2] = ("0" + parseDate[2]).slice(-2);
 
-    if (parseDate.length === 4) {
-        parseDate.push(":00");
+    // console.log(parseDate);
+    if (parseDate[5] === undefined) {
         return new Date(
-            "20" + parseDate[3] + "-" + parseDate[2] + "-" + parseDate[1] + "T"
-            + parseDate[4] + parseDate[5]
+            "20" + parseDate[3] + "-" + parseDate[1] + "-" + parseDate[2] + "T"
+            + parseDate[4] + ":00"
         );
     }
 
