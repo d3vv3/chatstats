@@ -1,7 +1,7 @@
 export function processTxt(fileContentString) {
   console.log(fileContentString);
   // var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([^:]*): (.*))/;
-  var patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4}, [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
+  var patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4},? [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
@@ -62,7 +62,7 @@ function getMediaType(text) {
 }
 
 function formatDate(date) {
-  var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4}), ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
+  var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4}),? ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
   var parseDate = patt.exec(date);
 
   parseDate[1] = ("0" + parseDate[1]).slice(-2);
