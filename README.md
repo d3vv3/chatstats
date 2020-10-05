@@ -31,5 +31,6 @@ Built using [Reactjs](https://reactjs.org/) and [Chartjs](https://github.com/jer
 - [x] Multimedia statistics.
 - [x] Get Dockerfile and docker-compose.yml ready.
 - [x] Check emoji accuracy (maybe depends on client emoji font).
+- [x] Unzip iPhone Whatsapp exports (it does it that way).
+- [x] Removed fakepath (only real file name) from UI.
 - [ ] Second theme (scss) with switch.
-- [ ] Unzip iPhone Whatsapp exports (it does it that way).
