@@ -26,11 +26,15 @@ function Viz(props) {
     // The next two lines do not work yet
     try {
       setStats(analyze(props.chatObject));
+      if (stats != null) {
+        setLoading(false);
+        return;
+      }
       // Set loading to false once finished
-      setLoading(false);
     } catch (e) {
       console.error(e);
     }
+    // eslint-disable-next-line
   }, [props.chatObject]);
   // This array is so useEffect doesn't trigger endlessly but once,
   // and then when the props.chatObject updates
