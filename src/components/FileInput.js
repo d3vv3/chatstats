@@ -54,7 +54,7 @@ function FileInput(props) {
         <label htmlFor="file">
           <FontAwesomeIcon icon={faUpload} /> Select chat
         </label>
-        <h3>{fileName}</h3>
+        <h3>{fileName != null ? fileName.slice(12) : null}</h3>
         {
           //Conditionally render "Go!" button if chat file selected
         }
