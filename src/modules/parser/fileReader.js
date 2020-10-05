@@ -9,7 +9,7 @@ export function processFile(fileContent, fileName, callback) {
   // Callback every time a reading operation is complete
   reader.onload = function () {
     // console.log(reader.result);
-    callback(messageParser(reader.result, fileName));
+    callback(messageParser(reader.result, fileName, fileContent));
   };
 
   // Callback each time an error occurs on any other operation

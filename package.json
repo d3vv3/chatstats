@@ -12,6 +12,8 @@
     "chart.js": "^2.9.3",
     "emoji-regex": "^9.0.0",
     "hex-to-rgba": "^2.0.1",
+    "jszip": "^3.5.0",
+    "jszip-sync": "^3.2.1-sync",
     "node-sass": "^4.14.1",
     "randomcolor": "^0.6.2",
     "react": "^16.13.1",
