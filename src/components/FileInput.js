@@ -17,6 +17,7 @@ function FileInput(props) {
       case "file":
         setFileName(value);
         setFileContent(files[0]);
+        props.setFileInserted(value);
         // console.log(name, event.target);
         break;
       default:

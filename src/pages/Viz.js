@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 
 // External chartjs imports
 import { Doughnut, Bar } from "react-chartjs-2";
@@ -25,6 +26,10 @@ function Viz(props) {
     // Probably use futures and promises here
     // The next two lines do not work yet
     try {
+        if(typeof props.fileInserted !== 'string') {
+            setLoading(false);
+            props.history.push('/');
+        }
       setStats(analyze(props.chatObject));
       if (stats != null) {
         setLoading(false);
@@ -258,4 +263,4 @@ function Viz(props) {
   );
 }
 
-export default Viz;
+export default withRouter(Viz);
