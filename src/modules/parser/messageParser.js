@@ -10,11 +10,11 @@ export async function messageParser(fileContentString, fileName, fileContent) {
 
   // Check the extension of the input file
   if (isZip.test(fileName)) {
-    var chatString = getChatFileFromZip(fileContent);
-    console.log(chatString);
+    var chatString = await getChatFileFromZip(fileContent);
+    console.log(chatString, new Date().getTime());
     return processTxt(chatString);
   }
-  if (isTxt.test(fileName)) {
+  else if (isTxt.test(fileName)) {
     try {
       var chat = processTxt(fileContentString);
       console.log(chat);
