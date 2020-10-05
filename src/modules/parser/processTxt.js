@@ -1,4 +1,5 @@
 export function processTxt(fileContentString) {
+  console.log(fileContentString);
   // var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([^:]*): (.*))/;
   var patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
 
@@ -9,87 +10,87 @@ export function processTxt(fileContentString) {
   var aux = [];
 
   msgList.forEach((elem) => {
-
-      if (patt.test(elem)) {
-          var msg = parseMessage(aux);
-          if (msg != null) {
-              parsedList.push(msg);
-          }
-          aux = [];
+    if (patt.test(elem)) {
+      var msg = parseMessage(aux);
+      if (msg != null) {
+        parsedList.push(msg);
       }
-
-      else {
-          aux.push(elem);
-      }
+      aux = [];
+    } else {
+      aux.push(elem);
+    }
   });
 
   // Acommodate format to Telegram chats
   var chat = { messages: parsedList, name: "Whatsapp chat" };
-
   return chat;
 }
 
 function parseMessage(msg) {
-    if (msg.length !== 4) {
-        return null
-    }
+  if (msg.length !== 4) {
+    return null;
+  } else {
+    var msgObject = {
+      date: formatDate(msg[0]),
+      from: msg[1],
+      text: msg[2].concat(msg[3]),
+      type: "message",
+      media_type: getMediaType(msg[2]), // Telegram compatibility
+      photo:
+        /.jpg \(file attached\)$/.test(msg[2]) || /\.jpg>$/.test(msg[2])
+          ? "yes"
+          : null,
+    };
 
-    else {
-        var msgObject = {
-            date: formatDate(msg[0]),
-            from: msg[1],
-            text: msg[2].concat(msg[3]),
-            type: 'message',
-            media_type: getMediaType(msg[2]), // Telegram compatibility
-            photo: /.jpg \(file attached\)$/.test(msg[2])
-            || /\.jpg>$/.test(msg[2]) ? 'yes' : null,
-        }
-
-        return msgObject;
-    }
-
+    return msgObject;
+  }
 }
 
 function getMediaType(text) {
-    if (text === "<Media omitted>") {
-        return "unknown";
-    }
-
-    else if (/\.opus \(file attached\)$/.test(text) || /\.opus>$/.test(text)) {
-        return "voice_message";
-    }
-
-    else if (/\.mp4 \(file attached\)$/.test(text) || /\.mp4>$/.test(text)) {
-        return "video_file";
-    }
-
-    else if (/\.webp \(file attached\)$/.test(text) || /\.webp>$/.test(text)) {
-        return "sticker";
-    }
-
-    else {
-        return null;
-    }
-
+  if (text === "<Media omitted>") {
+    return "unknown";
+  } else if (/\.opus \(file attached\)$/.test(text) || /\.opus>$/.test(text)) {
+    return "voice_message";
+  } else if (/\.mp4 \(file attached\)$/.test(text) || /\.mp4>$/.test(text)) {
+    return "video_file";
+  } else if (/\.webp \(file attached\)$/.test(text) || /\.webp>$/.test(text)) {
+    return "sticker";
+  } else {
+    return null;
+  }
 }
 
 function formatDate(date) {
-    var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2}), ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
-    var parseDate = patt.exec(date);
+  var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2}), ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
+  var parseDate = patt.exec(date);
 
-    parseDate[1] = ("0" + parseDate[1]).slice(-2);
-    parseDate[2] = ("0" + parseDate[2]).slice(-2);
+  parseDate[1] = ("0" + parseDate[1]).slice(-2);
+  parseDate[2] = ("0" + parseDate[2]).slice(-2);
 
-    // console.log(parseDate);
-    if (parseDate[5] === undefined) {
-        return new Date(
-            "20" + parseDate[3] + "-" + parseDate[1] + "-" + parseDate[2] + "T"
-            + parseDate[4] + ":00"
-        );
-    }
-
+  // console.log(parseDate);
+  if (parseDate[5] === undefined) {
     return new Date(
-        "20" + parseDate[3] + "-" + parseDate[2] + "-" + parseDate[1] + "T"
-        + parseDate[4] + parseDate[5]
+      "20" +
+        parseDate[3] +
+        "-" +
+        parseDate[1] +
+        "-" +
+        parseDate[2] +
+        "T" +
+        parseDate[4] +
+        ":00"
     );
+  }
+
+  return new Date(
+    "20" +
+      parseDate[3] +
+      "-" +
+      parseDate[2] +
+      "-" +
+      parseDate[1] +
+      "T" +
+      parseDate[4] +
+      parseDate[5]
+  );
 }
