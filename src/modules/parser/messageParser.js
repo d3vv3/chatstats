@@ -15,7 +15,7 @@ export async function messageParser(fileContentString, fileName, fileContent) {
     try {
       var chatString = await getChatFileFromZip(fileContent);
       chat = processTxt(chatString);
-      console.log(chat);
+      // console.log(chat);
       return chat;
     } catch (e) {
       console.error("Are you sure the file is a valid chat?");
@@ -25,7 +25,7 @@ export async function messageParser(fileContentString, fileName, fileContent) {
   } else if (isTxt.test(fileName)) {
     try {
       chat = processTxt(fileContentString);
-      console.log(chat);
+      // console.log(chat);
       return chat;
     } catch (e) {
       console.error("Are you sure the file is a valid chat?");

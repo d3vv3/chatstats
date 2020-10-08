@@ -45,10 +45,13 @@ export function getSuperStrings(polarizedChat) {
 
 export function getWordList(superStrings) {
   var wordList = {};
+  console.log(superStrings);
 
   Object.keys(superStrings).forEach((key) => {
-    // wordList[key] = superStrings[key].split(/[^a-zA-ZÀ-ÿ\u00f1\u00d1]+/);
-    wordList[key] = superStrings[key].match(/[a-zA-ZÀ-ÿ\u00f1\u00d1]+/g);
+    // This if is a hotfix for some character issues
+    if (key !== "undefined") {
+      wordList[key] = superStrings[key].match(/[a-zA-ZÀ-ÿ\u00f1\u00d1]+/g);
+    }
   });
 
   return wordList;
@@ -82,12 +85,11 @@ export function getWordRepetition(wordList, isEmoji) {
   Object.keys(wordList).forEach((key) => {
     try {
       wordList[key].forEach((word) => {
-          if (notCommonWord(word) || isEmoji) {
-              wordRepetition[word] != null
-              ? ++wordRepetition[word]
-              : (wordRepetition[word] = 1);
-          }
-
+        if (notCommonWord(word) || isEmoji) {
+          wordRepetition[word] != null
+            ? ++wordRepetition[word]
+            : (wordRepetition[word] = 1);
+        }
       });
     } catch (e) {}
   });

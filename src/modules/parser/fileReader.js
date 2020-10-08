@@ -3,12 +3,12 @@ import { messageParser } from "./messageParser.js";
 export function processFile(fileContent, fileName, callback) {
   let reader = new FileReader();
 
-  // Get the content of the file as a String (maybe give utf-8?)
-  reader.readAsText(fileContent);
+  // Get the content of the file as a String
+  reader.readAsText(fileContent, "UTF-8");
 
   // Callback every time a reading operation is complete
   reader.onload = async function () {
-    // console.log(reader.result);
+    console.log(reader.result);
     callback(await messageParser(reader.result, fileName, fileContent));
   };
 
