@@ -2,7 +2,7 @@
 
 A **privacy oriented** tool to visualize your Whatsapp or Telegram **chat stats**.
 
-**Demo [here](chatstats.devve.space).**
+**Demo [here](https://chatstats.devve.space).**
 
 ## Disclaimer
 
