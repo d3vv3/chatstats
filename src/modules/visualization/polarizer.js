@@ -7,15 +7,13 @@ export function getPolarizedChat(chatObject) {
     // Iterate through every message
     for (let msg of chatObject.messages) {
       // If the contact is in results as key
-      if (msg.type !== "service") {
-        console.log(msg.from);
+      if (msg.type === "message") {
         result[msg.from] != null
           ? result[msg.from].push(msg) // Then add the message to its key
           : (result[msg.from] = [msg]); // If it doesn't exist, create array with it
       }
     }
   } catch (e) {}
-  console.log(result);
   return result;
 }
 

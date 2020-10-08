@@ -8,7 +8,6 @@ export function processFile(fileContent, fileName, callback) {
 
   // Callback every time a reading operation is complete
   reader.onload = async function () {
-    console.log(reader.result);
     callback(await messageParser(reader.result, fileName, fileContent));
   };
 

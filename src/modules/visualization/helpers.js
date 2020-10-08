@@ -45,7 +45,6 @@ export function getSuperStrings(polarizedChat) {
 
 export function getWordList(superStrings) {
   var wordList = {};
-  console.log(superStrings);
 
   Object.keys(superStrings).forEach((key) => {
     // This if is a hotfix for some character issues
