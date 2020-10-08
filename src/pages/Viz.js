@@ -26,10 +26,10 @@ function Viz(props) {
     // Probably use futures and promises here
     // The next two lines do not work yet
     try {
-        if(typeof props.fileInserted !== 'string') {
-            setLoading(false);
-            props.history.push('/');
-        }
+      if (typeof props.fileInserted !== "string") {
+        setLoading(false);
+        props.history.push("/");
+      }
       setStats(analyze(props.chatObject));
       if (stats != null) {
         setLoading(false);
@@ -51,7 +51,7 @@ function Viz(props) {
       <div className="flex-row">
         <div className="stat-item">
           <h2> Message Count </h2>
-          <p>Ammount of messages sent by each contact.</p>
+          <p>Amount of messages sent by each contact.</p>
           <div
             className={
               stats.messageCount.labels.length > 10
@@ -67,7 +67,7 @@ function Viz(props) {
         </div>
         <div className="stat-item">
           <h2> Character count </h2>
-          <p>Ammount of characters sent by each contact.</p>
+          <p>Amount of characters sent by each contact.</p>
           <div
             className={
               stats.charCount.labels.length > 10
@@ -120,7 +120,7 @@ function Viz(props) {
         {stats.photoCount.labels.length !== 0 ? (
           <div className="stat-item">
             <h2> Photo Count </h2>
-            <p>Ammount of photos sent by each contact.</p>
+            <p>Amount of photos sent by each contact.</p>
             <div
               className={
                 stats.photoCount.datasets.length > 10
@@ -138,7 +138,7 @@ function Viz(props) {
         {stats.videoCount.labels.length !== 0 ? (
           <div className="stat-item">
             <h2> Video Count </h2>
-            <p>Ammount of videos sent by each contact.</p>
+            <p>Amount of videos sent by each contact.</p>
             <div
               className={
                 stats.videoCount.datasets.length > 10
@@ -158,7 +158,7 @@ function Viz(props) {
         {stats.audioCount.labels.length !== 0 ? (
           <div className="stat-item">
             <h2> Audio Count </h2>
-            <p>Ammount of audios sent by each contact.</p>
+            <p>Amount of audios sent by each contact.</p>
             <div
               className={
                 stats.audioCount.datasets.length > 10
@@ -176,7 +176,7 @@ function Viz(props) {
         {stats.stickerCount.labels.length !== 0 ? (
           <div className="stat-item">
             <h2> Sticker Count </h2>
-            <p>Ammount of stickers sent by each contact.</p>
+            <p>Amount of stickers sent by each contact.</p>
             <div
               className={
                 stats.stickerCount.datasets.length > 10
