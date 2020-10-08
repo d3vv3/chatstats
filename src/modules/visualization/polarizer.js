@@ -26,6 +26,7 @@ export function polarizeByMonth(polarizedChat) {
     try {
       for (let msg of polarizedChat[key]) {
         var month = msg.date.getMonth() + 1;
+        console.log(msg.date.getMonth());
         var year = msg.date.getFullYear();
         var date = month + "/" + year;
 

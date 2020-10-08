@@ -1,38 +1,57 @@
 export function processTxt(fileContentString) {
-  console.log(fileContentString);
-  // var patt = /(\n([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}, [0-9]{2}:[0-9]{2}) - ([^:]*): (.*))/;
-  var patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4},? [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
+  const patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4},? [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
+  const userLang = navigator.language || navigator.userLanguage;
+  var langUS = userLang === 'en-US';
+  console.log(langUS);
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
-  console.log(msgList);
 
-  var parsedList = [];
-  var aux = [];
+  var parsedList = getParsedMessageList(msgList, patt, langUS);
 
-  msgList.forEach((elem) => {
-    if (patt.test(elem)) {
-      var msg = parseMessage(aux);
-      if (msg != null) {
-        parsedList.push(msg);
-      }
-      aux = [];
-    } else {
-      aux.push(elem);
-    }
-  });
+  if (parsedList === null) {
+      parsedList = getParsedMessageList(msgList, patt, !langUS);
+  }
 
   // Acommodate format to Telegram chats
   var chat = { messages: parsedList, name: "Whatsapp chat" };
   return chat;
 }
 
-function parseMessage(msg) {
+function getParsedMessageList(msgList, patt, langUS) {
+    var parsedList = [];
+    var aux = [];
+    var changeLang = false;
+
+    [...msgList].forEach((elem) => {
+      if (patt.test(elem)) {
+        var msg = parseMessage(aux, langUS);
+
+        if (msg !== null) {
+          parsedList.push(msg);
+          if (isNaN(msg.date)) {
+              changeLang = true;
+              return;
+          }
+        }
+
+        aux = [];
+      } else {
+        aux.push(elem);
+      }
+    });
+
+    if (changeLang) {return null;}
+
+    return parsedList;
+}
+
+function parseMessage(msg, langUS) {
   if (msg.length !== 4) {
     return null;
   } else {
     var msgObject = {
-      date: formatDate(msg[0]),
+      date: formatDate(msg[0], langUS),
       from: msg[1],
       text: msg[2].concat(msg[3]),
       type: "message",
@@ -61,34 +80,39 @@ function getMediaType(text) {
   }
 }
 
-function formatDate(date) {
+function formatDate(date, langUS) {
   var patt = /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4}),? ([0-9]{2}:[0-9]{2})(:[0-9]{2})?/;
   var parseDate = patt.exec(date);
 
-  parseDate[1] = ("0" + parseDate[1]).slice(-2);
-  parseDate[2] = ("0" + parseDate[2]).slice(-2);
-  parseDate[3] = ("20" + parseDate[3]).slice(-4);
+  var day = langUS ? parseDate[2]: parseDate[1];
+  var month = langUS ? parseDate[1]: parseDate[2];
 
-  // console.log(parseDate);
+  var year = ("20" + parseDate[3]).slice(-4);
+
+  day = ("0" + day).slice(-2);
+  month = ("0" + month).slice(-2);
+
   if (parseDate[5] === undefined) {
-    return new Date(
-        parseDate[3] +
-        "-" +
-        parseDate[1] +
-        "-" +
-        parseDate[2] +
-        "T" +
-        parseDate[4] +
-        ":00"
-    );
+      parseDate.[5] = ":00";
   }
 
+  // console.log(
+  //     year +
+  //     "-" +
+  //     month +
+  //     "-" +
+  //     day +
+  //     "T" +
+  //     parseDate[4] +
+  //     parseDate[5]
+  // );
+
   return new Date(
-      parseDate[3] +
+      year +
       "-" +
-      parseDate[2] +
+      month +
       "-" +
-      parseDate[1] +
+      day +
       "T" +
       parseDate[4] +
       parseDate[5]
