@@ -2,7 +2,7 @@ export function processTxt(fileContentString) {
   const patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4},? [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
   const userLang = navigator.language || navigator.userLanguage;
   var langUS = userLang === 'en-US';
-  console.log(langUS);
+  // console.log(langUS);
 
   // Split messages on protptype match
   var msgList = fileContentString.split(patt);
