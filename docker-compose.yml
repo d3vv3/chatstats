@@ -5,4 +5,4 @@ services:
     image: chatstats
     restart: unless-stopped
     ports:
-      - 5001:5000
+      - 3000:3000
