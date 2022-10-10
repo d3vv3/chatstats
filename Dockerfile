@@ -9,7 +9,7 @@ COPY . .
 
 # install app dependencies
 RUN npm install --silent
-RUN npm run-script build
+RUN npm run build
 RUN npm install -g serve
 
 # start
