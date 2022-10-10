@@ -1,6 +1,12 @@
 {
   "short_name": "ChatStats",
-  "name": "See how your conversations evolved with time!",
+  "name": "ChatStats",
+  "description": "See the detail in your conversations!",
+  "categories": [
+    "entertainment",
+    "utilities",
+    "social"
+  ],
   "icons": [
     {
       "src": "favicon.ico",
@@ -43,17 +49,24 @@
     "params": {
       "title": "title",
       "text": "body",
-      "url": "url"
-    },
-    "files": [
-      {
-        "name": "chat-plain",
-        "accept": ["text/plain", ".txt"]
-      },
-      {
-        "name": "chat-zip",
-        "accept": ["application/zip", "application/octet-stream", ".zip"]
-      }
-    ]
-  }
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["text/plain", ".txt"]
+        },
+        {
+          "name": "file",
+          "accept": ["application/zip", "application/octet-stream", ".zip"]
+        }
+      ]
+    }
+  },
+  "shortcuts": [
+    {
+        "name": "Home",
+        "url": "/",
+        "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    }
+  ]
 }
