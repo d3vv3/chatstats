@@ -35,5 +35,25 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "share_target": {
+    "action": "/input",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "body",
+      "url": "url"
+    },
+    "files": [
+      {
+        "name": "chat-plain",
+        "accept": ["text/plain", ".txt"]
+      },
+      {
+        "name": "chat-zip",
+        "accept": ["application/zip", "application/octet-stream", ".zip"]
+      }
+    ]
+  }
 }
