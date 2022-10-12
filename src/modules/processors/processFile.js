@@ -1,9 +1,9 @@
 import { processTxt } from "./processTxt.js";
 import { processJson } from "./processJson.js";
-import { getChatFileFromZip } from "./zipReader.js";
+import { getChatFileFromZip } from "../readers/zipReader.js";
 
-export async function messageParser(fileContentString, fileName, fileContent) {
-  // Define both supported extension types
+export async function processFile(fileContentString, fileName, fileContent) {
+  // Define all supported extension types
   var isZip = /.zip$/;
   var isTxt = /.txt$/;
   var isJson = /.json$/;
@@ -18,8 +18,8 @@ export async function messageParser(fileContentString, fileName, fileContent) {
       // console.log(chat);
       return chat;
     } catch (e) {
-      console.error("Are you sure the file is a valid chat?");
-      console.debug(e);
+      alert("Are you sure the file is a valid chat?");
+      console.error(e);
       return null;
     }
   } else if (isTxt.test(fileName)) {
@@ -28,8 +28,8 @@ export async function messageParser(fileContentString, fileName, fileContent) {
       // console.log(chat);
       return chat;
     } catch (e) {
-      console.error("Are you sure the file is a valid chat?");
-      console.debug(e);
+      alert("Are you sure the file is a valid chat?");
+      console.error(e);
       return null;
     }
   } else if (isJson.test(fileName)) {
@@ -37,11 +37,12 @@ export async function messageParser(fileContentString, fileName, fileContent) {
       chat = processJson(fileContentString);
       return chat;
     } catch (e) {
-      console.error("Are you sure the file is a valid chat?");
-      console.debug(e);
+      alert("Are you sure the file is a valid chat?");
+      console.error(e);
       return null;
     }
   } else {
+    alert("File extension is not supported.");
     console.error("File extension not supported.");
     return null;
   }

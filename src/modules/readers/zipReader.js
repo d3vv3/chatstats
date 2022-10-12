@@ -1,6 +1,6 @@
 var JSZip = require("jszip");
 
-export function getChatFileFromZip(f) {
+export function getChatFileFromZip(f) { 
   return JSZip.loadAsync(f).then(
     function (zip) {
       var chat = "";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { processFile } from "../modules/parser/fileReader.js";
+import { fileReader } from "../modules/readers/fileReader.js";
 import { withRouter } from "react-router-dom";
 
 // Style
@@ -29,7 +29,7 @@ function FileInput(props) {
     // Avoid the classic submit redirection
     event.preventDefault();
     // Set app state to chatObject
-    processFile(fileContent, fileName, props.setChatObject);
+    fileReader(fileContent, fileName, props.setChatObject);
     console.log("File submited!");
     // Push to the next page
     props.history.push("/graphs");

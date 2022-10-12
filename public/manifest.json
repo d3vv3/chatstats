@@ -43,7 +43,7 @@
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "share_target": {
-    "action": "/input",
+    "action": "/",
     "method": "POST",
     "enctype": "multipart/form-data",
     "params": {
@@ -53,11 +53,7 @@
       "files": [
         {
           "name": "file",
-          "accept": ["text/plain", ".txt"]
-        },
-        {
-          "name": "file",
-          "accept": ["application/zip", "application/octet-stream", ".zip"]
+          "accept": ["text/plain", ".txt", "application/zip", "application/octet-stream", ".zip"]
         }
       ]
     }

@@ -1,9 +1,9 @@
 import {
-  getPolarizedChat,
-  polarizeByMonth,
+  polarizeByContacts,
   polarizeByDay,
   polarizeByHour,
-} from "./polarizer.js";
+  polarizeByMonth
+} from "./polarizers";
 import {
   getRandomColors,
   getSuperStrings,
@@ -24,7 +24,7 @@ import { getTopWords } from "./toolset/repetitions.js";
 import { getPhotoCount, getMediaCount } from "./toolset/media.js";
 
 export function analyze(chatObject) {
-  var polarizedChat = getPolarizedChat(chatObject);
+  var polarizedChat = polarizeByContacts(chatObject);
   var colors = getRandomColors(polarizedChat);
   var fillColors = colors[0];
   var lineColors = colors[1];

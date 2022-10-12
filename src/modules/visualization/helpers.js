@@ -1,31 +1,17 @@
 import es_words from "../../common_words/esCommonWords.json";
 import en_words from "../../common_words/enCommonWords.json";
-const randomColor = require("randomcolor");
+import colors from "../../colors";
 const hexToRgba = require("hex-to-rgba");
 const emojiRegex = require("emoji-regex");
 
 // Scalable way of generating colors
 export function getRandomColors(polarizedChat) {
-  var colors = randomColor({
-    count: Object.keys(polarizedChat).length,
-    luminosity: "light",
-  });
-
-  var unique = [...new Set(colors)];
-  while (unique.length < Object.keys(polarizedChat).length) {
-    unique.push(
-      randomColor({
-        count: 1,
-        luminosity: "light",
-      })
-    );
-    unique = [...new Set(colors)];
-  }
-  var fill = unique.map(function (hex) {
+  var lines = [...colors].sort((a, b) => 0.5 - Math.random()).slice(0, Object.keys(polarizedChat).length);
+  var fill = lines.map(function (hex) {
     return hexToRgba(hex, 0.75);
   });
-  return [fill, unique];
-}
+  return [fill, lines];
+};
 
 export function getSuperStrings(polarizedChat) {
   var superStrings = {};

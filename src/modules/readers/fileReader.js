@@ -1,6 +1,6 @@
-import { messageParser } from "./messageParser.js";
+import { processFile } from "../processors/processFile.js";
 
-export function processFile(fileContent, fileName, callback) {
+export function fileReader(fileContent, fileName, callback) {
   let reader = new FileReader();
 
   // Get the content of the file as a String
@@ -8,7 +8,7 @@ export function processFile(fileContent, fileName, callback) {
 
   // Callback every time a reading operation is complete
   reader.onload = async function () {
-    callback(await messageParser(reader.result, fileName, fileContent));
+    callback(await processFile(reader.result, fileName, fileContent));
   };
 
   // Callback each time an error occurs on any other operation
