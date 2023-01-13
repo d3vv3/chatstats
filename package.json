@@ -1,4 +1,4 @@
- {
+{
   "name": "chatstats",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,7 @@
     "emoji-regex": "8.0.0",
     "hex-to-rgba": "^2.0.1",
     "jszip": "^3.10.1",
+    "moment": "^2.29.4",
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

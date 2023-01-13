@@ -16,6 +16,15 @@ function polarizeByContacts(chatObject) {
     } catch (e) {
       console.error(e);
     };
+
+    Object.keys({...result}).forEach((key) => {
+      // Remove possible status changes, videocalls and others
+      if (result[key].length <= 5) {
+        console.log("Borrar", key);
+        delete result[key]
+      } 
+    });
+    
     return result;
 };
 
