@@ -7,6 +7,17 @@
     margin: 0;
   }
 
+  .comment {
+    margin: 0;
+    margin-bottom: 8px;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .description {
+    color: grey;
+  }
+
   .stat-item {
     @include flexCenter(column);
     border-radius: 30px;
@@ -46,5 +57,9 @@
 
   .bigger {
     height: 600px;
+  }
+
+  .hourly {
+    width: 90vw;
   }
 }

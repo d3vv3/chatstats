@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:16-alpine3.16
+FROM node:18-alpine3.16
 
 # set working directory
 WORKDIR /app
@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . .
 
 # install app dependencies
-RUN npm install --silent
+# --force because react-wordcloud has not updated dependencies for 2 years, but works with react@18
+RUN npm install --silent --force
 RUN npm run build
 RUN npm install -g serve
 

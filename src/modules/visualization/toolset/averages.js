@@ -41,8 +41,14 @@ export function getCharAvg(
     chars[key] = total / msgs;
   });
 
+  const charsNumber = Object.keys(chars).map(c => chars[c]);
+  const longWriter = Object.keys(chars)[charsNumber.indexOf(Math.max(...charsNumber))];
+  const shortWritter = Object.keys(chars)[charsNumber.indexOf(Math.min(...charsNumber))];
+
   return {
     labels: Object.keys(chars),
+    longWriter,
+    shortWritter,
     datasets: [
       {
         data: Object.values(chars),

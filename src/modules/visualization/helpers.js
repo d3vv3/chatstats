@@ -8,7 +8,7 @@ const emojiRegex = require("emoji-regex");
 export function getRandomColors(polarizedChat) {
   var lines = [...colors].sort((a, b) => 0.5 - Math.random()).slice(0, Object.keys(polarizedChat).length);
   var fill = lines.map(function (hex) {
-    return hexToRgba(hex, 0.75);
+    return hexToRgba(hex, 0.7);
   });
   return [fill, lines];
 };
@@ -96,4 +96,9 @@ export function getCloudOptions() {
     scale: "sqrt",
     spiral: "archimedean",
   };
+}
+
+export function getMostTalkerNomination(polarizedChat) {
+  const messagesNumber = Object.keys(polarizedChat).map(c => polarizedChat[c].length)
+  return Object.keys(polarizedChat)[messagesNumber.indexOf(Math.max(...messagesNumber))];
 }

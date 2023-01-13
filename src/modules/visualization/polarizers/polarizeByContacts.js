@@ -24,7 +24,7 @@ function polarizeByContacts(chatObject) {
         delete result[key]
       } 
     });
-    
+
     return result;
 };
 

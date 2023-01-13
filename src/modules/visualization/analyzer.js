@@ -11,6 +11,7 @@ import {
   getEmojiList,
   getWordRepetition,
   getCloudOptions,
+  getMostTalkerNomination,
 } from "./helpers.js";
 
 import { getMessageCount, getCharCount } from "./toolset/counts.js";
@@ -85,7 +86,10 @@ export function analyze(chatObject) {
       polarizedChat, fillColors, lineColors, "sticker"
   );
 
+  const mostTalker = getMostTalkerNomination(polarizedChat);
+
   return {
+    mostTalker,
     messageCount: messageCount,
     charCount: charCount,
     wordAvg: wordAvg,
@@ -100,5 +104,7 @@ export function analyze(chatObject) {
     videoCount: videoCount,
     audioCount: audioCount,
     stickerCount: stickerCount,
+    fillColors,
+    lineColors,
   };
 }
