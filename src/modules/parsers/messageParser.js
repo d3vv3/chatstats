@@ -12,11 +12,7 @@ export function parseMessage(msg, patt, langUS) {
         from: msg[3],
         text: msg[4],
         type: "message",
-        media_type: parseMediaType(msg[4]), // Telegram compatibility
-        photo:
-            /.jpg \(file attached\)$/.test(msg[4]) || /\.jpg>$/.test(msg[4])
-            ? "yes"
-            : null
+        media_type: parseMediaType(msg[4])
         };
         // console.log(msgObject);
         return msgObject;

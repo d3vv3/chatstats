@@ -5,7 +5,9 @@ import { getChatFileFromZip } from "../readers/zipReader.js";
 export async function processFile(fileContentString, fileName, fileContent) {
   // Define all supported extension types
   var isZip = /.zip$/;
+  // TODO: Accept without file extension, since WhatsApp removed it on Android
   var isTxt = /.txt$/;
+  // Telegram remanicent
   var isJson = /.json$/;
 
   var chat;

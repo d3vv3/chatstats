@@ -4,7 +4,7 @@ export function getPhotoCount(polarizedChat, fillColors, lineColors) {
   // Iterate polarizedChat keys and see their array length
   Object.keys(polarizedChat).forEach((key) => {
       polarizedChat[key].forEach((msg) => {
-          if (msg.photo != null) {
+          if (msg.media_type === "image") {
               photoCount[key] != null
               ? photoCount[key]++ : photoCount[key] = 1;
           }

@@ -6,7 +6,7 @@ import { Doughnut, Bar } from "react-chartjs-2";
 import ReactWordcloud from "react-wordcloud";
 
 // Local imports
-import LoadingIcon from "../components/LoadingIcon";
+import { LoadingIcon, HourDistribution } from "../components";
 
 // Local visualization module
 import { analyze } from "../modules/visualization/analyzer.js";
@@ -237,10 +237,11 @@ function Viz(props) {
                 : "chart-container"
             }
           >
-            <Bar
+            < HourDistribution polarizedByHour={stats.messagesHour} />
+            {/* <Bar
               data={stats.messagesHour}
               options={{ maintainAspectRatio: false }}
-            />
+            /> */}
           </div>
         </div>
       </div>

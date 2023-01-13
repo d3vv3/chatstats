@@ -7,6 +7,8 @@ export function parseMediaType(text) {
       return "video_file";
     } else if (/\.webp \(file attached\)$/.test(text) || /\.webp>$/.test(text)) {
       return "sticker";
+    } else if (/\.jpg \(file attached\)$/.test(text) || /\.jpg>$/.test(text)) {
+      return "image"
     } else {
       return null;
     }
