@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Local imports
-import Routes from "./routes/routes";
+import AppRouter from "./routes/routes";
 
 // Style
 import "./styles/style.scss";
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-        <Routes
+        <AppRouter
             chatObject={chatObject}
             setChatObject={setChatObject}
             fileInserted={fileInserted}

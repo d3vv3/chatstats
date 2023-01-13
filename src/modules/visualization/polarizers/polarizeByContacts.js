@@ -5,7 +5,7 @@ function polarizeByContacts(chatObject) {
     // Try in case component called it with null argument
     try {
       // Iterate through every message
-      for (let msg of chatObject.messages) {
+      for (let msg of (chatObject.messages ?? [])) {
         // If the contact is in results as key
         if (msg.type === "message") {
           result[msg.from] != null

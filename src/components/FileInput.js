@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { fileReader } from "../modules/readers/fileReader.js";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Style
 import "../styles/style.scss";
@@ -25,6 +25,8 @@ function FileInput(props) {
     }
   };
 
+  const navigate = useNavigate();
+
   const submitForm = (event) => {
     // Avoid the classic submit redirection
     event.preventDefault();
@@ -32,7 +34,8 @@ function FileInput(props) {
     fileReader(fileContent, fileName, props.setChatObject);
     console.log("File submited!");
     // Push to the next page
-    props.history.push("/graphs");
+    
+    navigate("/graphs");
     return null;
   };
 
@@ -70,4 +73,4 @@ function FileInput(props) {
 }
 
 // This is so the component can redirect pushing to the browser history
-export default withRouter(FileInput);
+export default FileInput;

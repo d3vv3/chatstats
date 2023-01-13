@@ -1,30 +1,31 @@
 import React from "react";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { 
+    BrowserRouter,
+    Route,
+    Routes
+} from "react-router-dom";
 
 // Local imports
 import MainPage from "../pages/MainPage";
 import Viz from "../pages/Viz";
 
-function Routes(props) {
+function AppRouter(props) {
   return (
     <BrowserRouter>
-        <Switch>
-            <Route exact path="/graphs">
-                <Viz
+        <Routes>
+            <Route exact path="/graphs" element={<Viz
                     chatObject={props.chatObject}
                     fileInserted={props.fileInserted}
-                />
-            </Route>
-            <Route path="/">
-                <MainPage
+                />} />
+
+            <Route path="/" element={<MainPage
                     setChatObject={props.setChatObject}
                     setFileInserted={props.setFileInserted}
-                />
-            </Route>
-        </Switch>
+                />} />
+        </Routes>
     </BrowserRouter>
   );
 }
 
-export default Routes;
+export default AppRouter;

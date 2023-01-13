@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // External chartjs imports
 import { Doughnut, Bar } from "react-chartjs-2";
+import 'chart.js/auto';
 import ReactWordcloud from "react-wordcloud";
 
 // Local imports
@@ -20,6 +21,7 @@ function Viz(props) {
 
   // Places to hold information for the graphs
   const [stats, setStats] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // TODO: load, extract and analyze data
@@ -28,13 +30,17 @@ function Viz(props) {
     try {
       if (typeof props.fileInserted !== "string") {
         setLoading(false);
-        props.history.push("/");
+        navigate("/");
       }
-      setStats(analyze(props.chatObject));
-      if (stats != null) {
-        setLoading(false);
-        return;
+      // FIXME: doesnt finish execution
+      if (props.chatObject !== {}) {
+        setStats(analyze(props.chatObject));
+        if (stats != null) {
+          setLoading(false);
+          return;
+        }
       }
+      
       // Set loading to false once finished
     } catch (e) {
       console.error(e);
@@ -263,4 +269,4 @@ function Viz(props) {
   );
 }
 
-export default withRouter(Viz);
+export default Viz;

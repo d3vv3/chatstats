@@ -15,7 +15,6 @@ export async function processFile(fileContentString, fileName, fileContent) {
     try {
       var chatString = await getChatFileFromZip(fileContent);
       chat = processTxt(chatString);
-      // console.log(chat);
       return chat;
     } catch (e) {
       alert("Are you sure the file is a valid chat?");

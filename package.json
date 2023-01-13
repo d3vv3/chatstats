@@ -1,28 +1,24 @@
-{
+ {
   "name": "chatstats",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "chart.js": "^2.9.3",
-    "emoji-regex": "^9.0.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "chart.js": "^4.1.2",
+    "emoji-regex": "8.0.0",
     "hex-to-rgba": "^2.0.1",
-    "jszip": "^3.5.0",
+    "jszip": "^3.10.1",
     "randomcolor": "^0.6.2",
-    "react": "^16.13.1",
-    "react-chartjs-2": "^2.10.0",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.2",
+    "react-scripts": "^5.0.1",
     "react-wordcloud": "^1.2.7",
-    "sass": "^1.55.0",
-    "serve": "^14.0.1"
+    "sass": "^1.57.1",
+    "serve": "^14.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,9 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "jest": "^29.1.2",
-    "jest-environment-jsdom": "^29.1.2"
   }
 }
