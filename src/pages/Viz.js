@@ -16,6 +16,9 @@ import { analyze } from "../modules/visualization/analyzer.js";
 
 import { exportAsImage } from "../modules/utils";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
+
 // Style
 // import "../styles/style.scss";
 
@@ -61,6 +64,10 @@ function Viz(props) {
     <LoadingIcon />
   ) : (
     <div className="viz-container" ref={exportRef}>
+      <h1>
+        <span className="gradient-text">ChatStats!</span>
+      </h1>
+      <p className="bold">Here is an insight of your chat. Share it if you found it useful!</p>
       <div className="flex-row">
         <div className="item-container">
           <div className="stat-item">
@@ -249,14 +256,14 @@ function Viz(props) {
       </div>
         </div>
       <div className="flex-row">
-        { Object.keys(stats.photoCount).length !== 0 ? (
+        { stats.photoCount.labels.length !== 0 ? (
           <div className="item-container">
             <div className="stat-item">
               <h2> Photo count </h2>
               <p className="description">Amount of photos sent by each contact.</p>
               <div
                 className={
-                  Object.keys(stats.photoCount).length > 10
+                  stats.photoCount.labels.length > 10
                     ? "chart-container bigger"
                     : "chart-container"
                 }
@@ -281,14 +288,14 @@ function Viz(props) {
             <p className="comment">"{stats.mostPhotos.name}" sent {stats.mostPhotos.value} photos.</p>
           </div>
         ) : null}
-        {Object.keys(stats.videoCount).length !== 0 ? (
+        {stats.videoCount.labels.length !== 0 ? (
           <div className="item-container">
             <div className="stat-item">
               <h2> Video count </h2>
               <p className="description">Amount of videos sent by each contact.</p>
               <div
                 className={
-                  Object.keys(stats.videoCount).length > 10
+                  stats.videoCount.labels.length > 10
                     ? "chart-container bigger"
                     : "chart-container"
                 }
@@ -314,14 +321,14 @@ function Viz(props) {
         ) : null}
       </div>
       <div className="flex-row">
-        {Object.keys(stats.audioCount).length !== 0 ? (
+        {stats.audioCount.labels.length !== 0 ? (
           <div className="item-container">
             <div className="stat-item">
               <h2> Audio count </h2>
               <p className="description">Amount of audios sent by each contact.</p>
               <div
                 className={
-                  Object.keys(stats.audioCount).length > 10
+                  stats.audioCount.labels.length > 10
                     ? "chart-container bigger"
                     : "chart-container"
                 }
@@ -346,14 +353,14 @@ function Viz(props) {
             <p className="comment">"{stats.mostAudios.name}" is more into talking than into writting.</p>
           </div>
         ) : null}
-        {Object.keys(stats.stickerCount).length !== 0 ? (
+        {stats.stickerCount.labels.length !== 0 ? (
           <div className="item-container">
             <div className="stat-item">
               <h2> Sticker count </h2>
               <p className="description">Amount of stickers sent by each contact.</p>
               <div
                 className={
-                  Object.keys(stats.stickerCount).length > 10
+                  stats.stickerCount.labels.length > 10
                     ? "chart-container bigger"
                     : "chart-container"
                 }
@@ -451,7 +458,7 @@ function Viz(props) {
           <button 
             className="share-button"
             onClick={() => exportAsImage(document.body, "chatstats")}>
-            Share
+            Share <FontAwesomeIcon icon={faShareFromSquare} />
           </button>
         </div>
     </div>

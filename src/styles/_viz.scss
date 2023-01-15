@@ -5,6 +5,32 @@
   padding-top: 4vh;
   padding-bottom: 4vh;
 
+  h1 {
+    padding: 20px;
+    margin: 0;
+    font-size: 4vw;
+
+    // Fallback to white
+    color: white;
+
+    .gradient-text {
+      // Fallback color if gradient doesnt load
+      background-color: white;
+      // Gradient to overlay on text span
+      background-image: linear-gradient(140deg, $backColor1, $backColor2);
+
+      // Tricks to clip the overlay onto the text
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+    }
+  }
+
+  .bold {
+    font-weight: 600;
+  }
+
   h2 {
     margin: 0;
   }
