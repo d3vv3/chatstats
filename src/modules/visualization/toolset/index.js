@@ -8,7 +8,7 @@ import {
 import { getTopWords } from "./repetitions.js";
 import { getPhotoCount, getMediaCount } from "./media.js";
 import { chatReplies, conversationStarter, fastestReplier } from "./replies.js";
-import { jsonToChartJS, jsonToChartJSBar } from "./chartjs.js";
+import { jsonToChartJS } from "./chartjs.js";
 
 export {
     getMessageCount,

@@ -24,11 +24,13 @@
     "react-scripts": "^5.0.1",
     "react-wordcloud": "^1.2.7",
     "sass": "^1.57.1",
-    "serve": "^14.1.2"
+    "serve": "^14.1.2",
+    "wasm": "file:wasm/pkg"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:wasm": "cd wasm && wasm-pack build --target web --out-dir pkg",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "eject": "react-scripts eject"
   },
