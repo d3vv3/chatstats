@@ -117,3 +117,11 @@ export function getMinNomination(object) {
   };
 }
 
+export function getColorMap(polarizedChat, fillColors, lineColors) {
+  const contacts = Object.keys(polarizedChat);
+  let colorMap = {};
+  contacts.forEach((contact, index) => {
+    colorMap[contact] = {fillColor: fillColors[index], lineColor: lineColors[index]};
+  });
+  return colorMap;
+}

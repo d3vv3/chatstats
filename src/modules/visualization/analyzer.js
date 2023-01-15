@@ -13,6 +13,7 @@ import {
   getCloudOptions,
   getMaxNomination,
   getMinNomination,
+  getColorMap,
 } from "./helpers.js";
 
 import { 
@@ -40,6 +41,9 @@ export function analyze(chatObject) {
   var fillColors = colors[0];
   var lineColors = colors[1];
 
+  // Colors
+  var colorMap = getColorMap(polarizedChat, fillColors, lineColors);
+
   // Helpers
   var superStrings = getSuperStrings(polarizedChat);
   var wordList = getWordList(superStrings);
@@ -59,10 +63,6 @@ export function analyze(chatObject) {
   var polarizedMonths = polarizeByMonth(polarizedChat);
   var polarizedDays = polarizeByDay(polarizedChat);
   var polarizedHours = polarizeByHour(polarizedChat);
-
-  console.log("Hours", polarizedHours);
-
-  // console.log(polarizedMonths);
 
   var messagesMonth = getMessagesMonth(
     polarizedMonths["chat"],
@@ -91,15 +91,9 @@ export function analyze(chatObject) {
 
   // Media counts
   var photoCount = getPhotoCount(polarizedChat);
-  var videoCount = getMediaCount(
-      polarizedChat, fillColors, lineColors, "video_file"
-  );
-  var audioCount = getMediaCount(
-      polarizedChat, fillColors, lineColors, "voice_message"
-  );
-  var stickerCount = getMediaCount(
-      polarizedChat, fillColors, lineColors, "sticker"
-  );
+  var videoCount = getMediaCount(polarizedChat, "video_file");
+  var audioCount = getMediaCount(polarizedChat, "voice_message");
+  var stickerCount = getMediaCount(polarizedChat, "sticker");
 
   // Replies and streaks
   var conversationsStarted = conversationStarter(replies);
@@ -123,22 +117,22 @@ export function analyze(chatObject) {
     mostVideos: getMaxNomination(videoCount),
 
     // Counts
-    messageCount: jsonToChartJS(messageCount, fillColors, lineColors),
-    charCount: jsonToChartJS(charCount, fillColors, lineColors),
+    messageCount: jsonToChartJS(messageCount, colorMap),
+    charCount: jsonToChartJS(charCount, colorMap),
 
     // Averages
-    wordAvg: jsonToChartJS(wordAvg, fillColors, lineColors),
-    charAvg: jsonToChartJS(charAvg, fillColors, lineColors),
+    wordAvg: jsonToChartJS(wordAvg, colorMap),
+    charAvg: jsonToChartJS(charAvg, colorMap),
 
     // Insights
-    conversationsStarted: jsonToChartJS(conversationsStarted, fillColors, lineColors),
-    fastestRepliers: jsonToChartJS(fastestRepliers, fillColors, lineColors),
+    conversationsStarted: jsonToChartJS(conversationsStarted, colorMap),
+    fastestRepliers: jsonToChartJS(fastestRepliers, colorMap),
 
     // Distributions
-    messagesMonth: messagesMonth, // jsonToChartJSBar(polarizedMonths, "months", fillColors, lineColors),
+    messagesMonth: messagesMonth, // jsonToChartJSBar(polarizedMonths, "months", colorMap),
     messagesDay: messagesDay, 
-    // jsonToChartJSBar(polarizedDays, "days", fillColors, lineColors),
-    messagesHour: messagesHour, // jsonToChartJSBar(polarizedHours, "hours", fillColors, lineColors),
+    // jsonToChartJSBar(polarizedDays, "days", colorMap),
+    messagesHour: messagesHour, // jsonToChartJSBar(polarizedHours, "hours", colorMap),
 
     // Clouds
     topWords: topWords,
@@ -146,10 +140,10 @@ export function analyze(chatObject) {
     cloudOptions: cloudOptions,
 
     // Multimedia count
-    photoCount: jsonToChartJS(photoCount, fillColors, lineColors),
-    videoCount: jsonToChartJS(videoCount, fillColors, lineColors),
-    audioCount: jsonToChartJS(audioCount, fillColors, lineColors),
-    stickerCount: jsonToChartJS(stickerCount, fillColors, lineColors),
+    photoCount: jsonToChartJS(photoCount, colorMap),
+    videoCount: jsonToChartJS(videoCount, colorMap),
+    audioCount: jsonToChartJS(audioCount, colorMap),
+    stickerCount: jsonToChartJS(stickerCount, colorMap),
 
     // Colors
     fillColors,

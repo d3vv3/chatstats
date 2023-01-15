@@ -41,7 +41,12 @@ const conversationStarter = (chatReplies) => {
         if (result[m.from] === undefined) result[m.from] = 1;
         else result[m.from] += 1;
     });
-    return result;
+    let orderedResult = Object.values({...result}).sort((a, b) => b - a);
+    let newResult = {}
+    orderedResult.forEach(value => {
+        newResult[Object.keys({...result})[Object.values({...result}).indexOf(value)]] = value;
+    });
+    return newResult;
 };
 
 const fastestReplier = (chatReplies) => {
@@ -57,7 +62,12 @@ const fastestReplier = (chatReplies) => {
     // Object.keys({...result}).sort(k => result[k].cummulativeResponseTime/result[k].replies);
     // TODO: sort results by speed
     Object.keys({...result}).map(key => result[key] = result[key].cummulativeResponseTime/result[key].replies);
-    return result;
+    let orderedResult = Object.values({...result}).sort((a, b) => a - b);
+    let newResult = {}
+    orderedResult.forEach(value => {
+        newResult[Object.keys({...result})[Object.values({...result}).indexOf(value)]] = value;
+    });
+    return newResult;
 }
 
 export { 

@@ -14,7 +14,7 @@ export function getPhotoCount(polarizedChat) {
   return photoCount;
 }
 
-export function getMediaCount(polarizedChat, fillColors, lineColors, type) {
+export function getMediaCount(polarizedChat, type) {
   var mediaCount = {};
 
   // Iterate polarizedChat keys and see their array length

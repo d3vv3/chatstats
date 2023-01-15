@@ -64,6 +64,10 @@
     text {
       color: white;
     }
+
+    text[aria-describedby]{
+      color: white !important;
+    }
   }
 
   .flex-row {

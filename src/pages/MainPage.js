@@ -14,7 +14,7 @@ function MainPage(props) {
         </h1>
         <h2>
             A tool to visualize chat statistics and relevant data from your Whatsapp
-            or Telegram chats.
+            chats.
         </h2>
         <FileInput setChatObject={props.setChatObject} setFileInserted={props.setFileInserted} />
         <p>

@@ -8,7 +8,6 @@ export function processTxt(fileContentString) {
   // console.log(langUS);
 
   // Split messages on prototype match
-  // console.log(fileContentString);
   var msgList = fileContentString.match(patt);
   // console.log(msgList);
 
@@ -36,9 +35,14 @@ function getParsedMessageList(msgList, patt, langUS) {
         if (isNaN(msg.date)) {
           return;
         }
-        if (["Tú", "You", "Tú "].includes(msg.from)) {
+        if (msg.from.includes("Tú") || msg.from.includes("You")) {
           return;
         }
+
+        if (
+          msg.text.includes("Los mensajes y las llamadas están cifrados de extremo a extremo") ||
+          msg.text.includes("Messages and calls are end-to-end encrypted")
+          ) return;
         parsedList.push(msg);
       }
 
@@ -46,6 +50,5 @@ function getParsedMessageList(msgList, patt, langUS) {
       console.error(elem);
     }
   });
-  console.log(parsedList);
   return parsedList;
 }
