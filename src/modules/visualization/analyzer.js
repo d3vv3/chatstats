@@ -11,21 +11,31 @@ import {
   getEmojiList,
   getWordRepetition,
   getCloudOptions,
-  getMostTalkerNomination,
+  getMaxNomination,
+  getMinNomination,
 } from "./helpers.js";
 
-import { getMessageCount, getCharCount } from "./toolset/counts.js";
-import { getWordAvg, getCharAvg } from "./toolset/averages.js";
-import {
+import { 
+  getMessageCount,
+  getCharCount,
+  getWordAvg,
+  getCharAvg,
   getMessagesMonth,
   getMessagesDay,
   getMessagesHour,
-} from "./toolset/time.js";
-import { getTopWords } from "./toolset/repetitions.js";
-import { getPhotoCount, getMediaCount } from "./toolset/media.js";
+  getTopWords,
+  getPhotoCount,
+  getMediaCount,
+  chatReplies,
+  conversationStarter,
+  fastestReplier,
+  jsonToChartJS
+ } from "./toolset";
 
 export function analyze(chatObject) {
+  if (chatObject === {}) return {};
   var polarizedChat = polarizeByContacts(chatObject);
+  var replies = chatReplies(chatObject);
   var colors = getRandomColors(polarizedChat);
   var fillColors = colors[0];
   var lineColors = colors[1];
@@ -50,12 +60,17 @@ export function analyze(chatObject) {
   var polarizedDays = polarizeByDay(polarizedChat);
   var polarizedHours = polarizeByHour(polarizedChat);
 
+  console.log("Hours", polarizedHours);
+
+  // console.log(polarizedMonths);
+
   var messagesMonth = getMessagesMonth(
     polarizedMonths["chat"],
     polarizedMonths["months"],
     Array.from(fillColors),
     Array.from(lineColors)
   );
+
   var messagesDay = getMessagesDay(
     polarizedDays["chat"],
     polarizedDays["days"],
@@ -75,7 +90,7 @@ export function analyze(chatObject) {
   var topEmojis = getTopWords(emojiRepetition);
 
   // Media counts
-  var photoCount = getPhotoCount(polarizedChat, fillColors, lineColors);
+  var photoCount = getPhotoCount(polarizedChat);
   var videoCount = getMediaCount(
       polarizedChat, fillColors, lineColors, "video_file"
   );
@@ -86,24 +101,57 @@ export function analyze(chatObject) {
       polarizedChat, fillColors, lineColors, "sticker"
   );
 
-  const mostTalker = getMostTalkerNomination(polarizedChat);
+  // Replies and streaks
+  var conversationsStarted = conversationStarter(replies);
+  var fastestRepliers = fastestReplier(replies);
 
   return {
-    mostTalker,
-    messageCount: messageCount,
-    charCount: charCount,
-    wordAvg: wordAvg,
-    charAvg: charAvg,
-    messagesMonth: messagesMonth,
-    messagesDay: messagesDay,
-    messagesHour: messagesHour,
+    // Honorable mentions
+    mostTalker: getMaxNomination(messageCount),
+    mostChars: getMaxNomination(charCount),
+    mostWordsPerMessage: getMaxNomination(wordAvg),
+    leastWordsPerMessage: getMinNomination(wordAvg),
+    mostCharactersPerMessage: getMaxNomination(charAvg),
+    leastCharactersPerMessage: getMinNomination(charAvg),
+    mostConversationsStarted: getMaxNomination(conversationsStarted),
+    leastConversationsStarted: getMinNomination(conversationsStarted),
+    fastestReplier: getMinNomination(fastestRepliers),
+    slowestReplier: getMaxNomination(fastestRepliers),
+    mostAudios: getMaxNomination(audioCount),
+    mostStickers: getMaxNomination(stickerCount),
+    mostPhotos: getMaxNomination(photoCount),
+    mostVideos: getMaxNomination(videoCount),
+
+    // Counts
+    messageCount: jsonToChartJS(messageCount, fillColors, lineColors),
+    charCount: jsonToChartJS(charCount, fillColors, lineColors),
+
+    // Averages
+    wordAvg: jsonToChartJS(wordAvg, fillColors, lineColors),
+    charAvg: jsonToChartJS(charAvg, fillColors, lineColors),
+
+    // Insights
+    conversationsStarted: jsonToChartJS(conversationsStarted, fillColors, lineColors),
+    fastestRepliers: jsonToChartJS(fastestRepliers, fillColors, lineColors),
+
+    // Distributions
+    messagesMonth: messagesMonth, // jsonToChartJSBar(polarizedMonths, "months", fillColors, lineColors),
+    messagesDay: messagesDay, 
+    // jsonToChartJSBar(polarizedDays, "days", fillColors, lineColors),
+    messagesHour: messagesHour, // jsonToChartJSBar(polarizedHours, "hours", fillColors, lineColors),
+
+    // Clouds
     topWords: topWords,
     topEmojis: topEmojis,
     cloudOptions: cloudOptions,
-    photoCount: photoCount,
-    videoCount: videoCount,
-    audioCount: audioCount,
-    stickerCount: stickerCount,
+
+    // Multimedia count
+    photoCount: jsonToChartJS(photoCount, fillColors, lineColors),
+    videoCount: jsonToChartJS(videoCount, fillColors, lineColors),
+    audioCount: jsonToChartJS(audioCount, fillColors, lineColors),
+    stickerCount: jsonToChartJS(stickerCount, fillColors, lineColors),
+
+    // Colors
     fillColors,
     lineColors,
   };

@@ -2,16 +2,23 @@
   @include flexCenter(column);
   color: white;
   width: 100vw;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
 
   h2 {
     margin: 0;
   }
 
-  .comment {
-    margin: 0;
-    margin-bottom: 8px;
-    max-width: 500px;
-    text-align: center;
+  .item-container {
+    @include flexCenter(column);
+
+    .comment {
+      margin: 0;
+      margin-top: 0px;
+      margin-bottom: 12px;
+      max-width: 400px;
+      text-align: center;
+    }
   }
 
   .description {
@@ -23,8 +30,14 @@
     border-radius: 30px;
     background: rgba(255, 255, 255, 0.08);
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 16px;
     padding: 20px;
+    min-height: 10vh;
+    min-width: 20vh;
+
+    text {
+      color: white;
+    }
   }
 
   .flex-row {
@@ -55,11 +68,37 @@
     }
   }
 
+  .horizontal {
+    padding-right: 20px;
+  }
+
   .bigger {
     height: 600px;
   }
 
   .hourly {
     width: 90vw;
+  }
+
+  .share-button {
+    padding: 20px;
+    border: 0px;
+    border-radius: 20px;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    background-image: linear-gradient(140deg, $backColor1, $backColor2);
+    cursor: pointer;
+
+    &:focus {
+      outline: none !important;
+    }
+
+    &:hover {
+      color: black;
+      background-image: linear-gradient(140deg, $backColor3, $backColor4);
+      background-color: $backColor3;
+    }
   }
 }

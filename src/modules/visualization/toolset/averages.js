@@ -1,4 +1,4 @@
-export function getWordAvg(polarizedChat, wordList, fillColors, lineColors) {
+export function getWordAvg(polarizedChat, wordList) {
   var words = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -13,24 +13,12 @@ export function getWordAvg(polarizedChat, wordList, fillColors, lineColors) {
     words[key] = total / msgs;
   });
 
-  return {
-    labels: Object.keys(words),
-    datasets: [
-      {
-        data: Object.values(words),
-        backgroundColor: fillColors,
-        borderColor: lineColors
-        // hoverBackgroundCOlor: colors,
-      }
-    ]
-  };
+  return words;
 }
 
 export function getCharAvg(
   polarizedChat,
-  superStrings,
-  fillColors,
-  lineColors
+  superStrings
 ) {
   var chars = {};
 
@@ -42,20 +30,9 @@ export function getCharAvg(
   });
 
   const charsNumber = Object.keys(chars).map(c => chars[c]);
+  // TODO: move to honorableMentions
   const longWriter = Object.keys(chars)[charsNumber.indexOf(Math.max(...charsNumber))];
   const shortWritter = Object.keys(chars)[charsNumber.indexOf(Math.min(...charsNumber))];
 
-  return {
-    labels: Object.keys(chars),
-    longWriter,
-    shortWritter,
-    datasets: [
-      {
-        data: Object.values(chars),
-        backgroundColor: fillColors,
-        borderColor: lineColors
-        // hoverBackgroundCOlor: colors,
-      }
-    ]
-  };
+  return chars;
 }

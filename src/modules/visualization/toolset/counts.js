@@ -1,5 +1,5 @@
 // Returns number of messages per contact
-export function getMessageCount(polarizedChat, fillColors, lineColors) {
+export function getMessageCount(polarizedChat) {
   var nonChatjsResult = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -8,20 +8,10 @@ export function getMessageCount(polarizedChat, fillColors, lineColors) {
   });
 
   // Result should have a format Chartjs Doughnut wants
-  return {
-    labels: Object.keys(nonChatjsResult),
-    datasets: [
-      {
-        data: Object.values(nonChatjsResult),
-        backgroundColor: fillColors,
-        borderColor: lineColors,
-        // hoverBackgroundColor: colors,
-      },
-    ],
-  };
+  return nonChatjsResult;
 }
 
-export function getCharCount(superStrings, fillColors, lineColors) {
+export function getCharCount(superStrings) {
   var chars = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -29,15 +19,5 @@ export function getCharCount(superStrings, fillColors, lineColors) {
     chars[key] = superStrings[key].length;
   });
 
-  return {
-    labels: Object.keys(chars),
-    datasets: [
-      {
-        data: Object.values(chars),
-        backgroundColor: fillColors,
-        borderColor: lineColors,
-        // hoverBackgroundCOlor: colors,
-      },
-    ],
-  };
+  return chars;
 }

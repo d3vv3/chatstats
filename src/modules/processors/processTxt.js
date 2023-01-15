@@ -34,7 +34,10 @@ function getParsedMessageList(msgList, patt, langUS) {
 
       if (msg !== null) {
         if (isNaN(msg.date)) {
-          return null;
+          return;
+        }
+        if (["Tú", "You", "Tú "].includes(msg.from)) {
+          return;
         }
         parsedList.push(msg);
       }
@@ -43,6 +46,6 @@ function getParsedMessageList(msgList, patt, langUS) {
       console.error(elem);
     }
   });
-  // console.log(parsedList);
+  console.log(parsedList);
   return parsedList;
 }

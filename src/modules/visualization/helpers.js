@@ -1,5 +1,6 @@
 import es_words from "../../common_words/esCommonWords.json";
 import en_words from "../../common_words/enCommonWords.json";
+import whastsapp_words from "../../common_words/whatsappCommonWords.json";
 import colors from "../../colors";
 const hexToRgba = require("hex-to-rgba");
 const emojiRegex = require("emoji-regex");
@@ -59,9 +60,14 @@ function notCommonWord(word) {
   var result =
     es_words.esCommonWords.includes(word.toLowerCase()) ||
     en_words.enCommonWords.includes(word.toLowerCase()) ||
+    whastsapp_words.whatsappCommonWords.includes(word.toLowerCase()) ||
     word.length <= 2 ||
     word.toLowerCase().includes("jaja") ||
-    word.toLowerCase().includes("haha");
+    word.toLowerCase().includes("haha") ||
+    word.toLowerCase().includes("jeje") ||
+    word.toLowerCase().includes("hehe") ||
+    word.toLowerCase().includes("si") ||
+    word.toLowerCase().includes("no");
   return !result;
 }
 
@@ -78,7 +84,6 @@ export function getWordRepetition(wordList, isEmoji) {
       });
     } catch (e) {}
   });
-
   return wordRepetition;
 }
 
@@ -98,7 +103,17 @@ export function getCloudOptions() {
   };
 }
 
-export function getMostTalkerNomination(polarizedChat) {
-  const messagesNumber = Object.keys(polarizedChat).map(c => polarizedChat[c].length)
-  return Object.keys(polarizedChat)[messagesNumber.indexOf(Math.max(...messagesNumber))];
+export function getMaxNomination(object) {
+  return {
+    name: Object.keys(object)[Object.values(object).indexOf(Math.max(...Object.values(object)))],
+    value: Math.max(...Object.values(object)),
+  };
 }
+
+export function getMinNomination(object) {
+  return {
+    name: Object.keys(object)[Object.values(object).indexOf(Math.min(...Object.values(object)))],
+    value: Math.min(...Object.values(object))
+  };
+}
+

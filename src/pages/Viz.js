@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // External chartjs imports
-import { Doughnut, Bar, Pie, Radar } from "react-chartjs-2";
+import { Bar, Pie } from "react-chartjs-2";
 import 'chart.js/auto';
+import { Chart } from 'chart.js';
 import ReactWordcloud from "react-wordcloud";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Local imports
 import LoadingIcon from "../components/LoadingIcon";
@@ -12,8 +14,14 @@ import LoadingIcon from "../components/LoadingIcon";
 // Local visualization module
 import { analyze } from "../modules/visualization/analyzer.js";
 
+import { exportAsImage } from "../modules/utils";
+
 // Style
-import "../styles/style.scss";
+// import "../styles/style.scss";
+
+
+Chart.register(ChartDataLabels);
+
 
 function Viz(props) {
   // State to change loading screen
@@ -22,17 +30,19 @@ function Viz(props) {
   // Places to hold information for the graphs
   const [stats, setStats] = useState(null);
   const navigate = useNavigate();
+  const exportRef = useRef();
 
   useEffect(() => {
     try {
       if (typeof props.fileInserted !== "string") {
         setLoading(false);
         navigate("/");
+        return;
       }
       // FIXME: doesnt finish execution
-      if (props.chatObject !== {}) {
+      if (props.chatObject !== {} && props.chatObject !== undefined && props.chatObject !== null) {
         setStats(analyze(props.chatObject));
-        if (stats != null) {
+        if (stats !== null) {
           setLoading(false);
           return;
         }
@@ -50,150 +60,322 @@ function Viz(props) {
   return loading ? (
     <LoadingIcon />
   ) : (
-    <div className="viz-container">
+    <div className="viz-container" ref={exportRef}>
       <div className="flex-row">
-        <div className="stat-item">
-          <h2> Message Count </h2>
-          <p className="description">Amount of messages sent by each contact.</p>
-          <p className="comment">Seems like "{stats.mostTalker}" is the most talkative.</p>
-          <div
-            className={
-              stats.messageCount.labels.length > 10
-                ? "chart-container bigger"
-                : "chart-container"
-            }
-          >
-            <Pie
-              data={stats.messageCount}
-              options={{ maintainAspectRatio: false, plugins: {legend: "bottom"} }}
-            />
-          </div>
-        </div>
-        <div className="stat-item">
-          <h2> Character count </h2>
-          <p className="description">Amount of characters sent by each contact.</p>
-          <div
-            className={
-              stats.charCount.labels.length > 10
-                ? "chart-container bigger"
-                : "chart-container"
-            }
-          >
-            <Pie
-              data={stats.charCount}
-              options={{ maintainAspectRatio: false }}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex-row">
-        <div className="stat-item">
-          <h2> Average words per message </h2>
-          <p className="description">Average words per message by each contact.</p>
-          <div
-            className={
-              stats.wordAvg.labels.length > 10
-                ? "chart-container bigger"
-                : "chart-container"
-            }
-          >
-            <Pie
-              data={stats.wordAvg}
-              options={{ maintainAspectRatio: false }}
-            />
-          </div>
-        </div>
-        <div className="stat-item">
-          <h2> Average characters per message </h2>
-          <p className="description">Average characters per message by each contact.</p>
-          <p className="comment">"{stats.charAvg.longWriter}" is the one hitting the most keys, while "{stats.charAvg.shortWritter}" likes to keep it short.</p>
-          <div
-            className={
-              stats.charAvg.labels.length > 10
-                ? "chart-container bigger"
-                : "chart-container"
-            }
-          >
-            <Pie
-              data={stats.charAvg}
-              options={{ maintainAspectRatio: false }}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex-row">
-        {stats.photoCount.labels.length !== 0 ? (
+        <div className="item-container">
           <div className="stat-item">
-            <h2> Photo Count </h2>
-            <p className="description">Amount of photos sent by each contact.</p>
+            <h2> Message count </h2>
+            <p className="description">Amount of messages sent by each contact.</p>
             <div
               className={
-                stats.photoCount.datasets.length > 10
+                stats.messageCount.labels.length > 10
                   ? "chart-container bigger"
                   : "chart-container"
               }
             >
               <Pie
-                data={stats.photoCount}
-                options={{ maintainAspectRatio: false }}
+                data={stats.messageCount}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'bottom'
+                    },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "center",
+                      align: "end"
+                    }
+                  }
+                }}
               />
             </div>
+          </div>
+          <p className="comment">Seems like "{stats.mostTalker.name}" is the most talkative.</p>
+        </div>
+        <div className="item-container">
+          <div className="stat-item">
+            <h2> Character count </h2>
+            <p className="description">Amount of characters sent by each contact.</p>
+            <div
+              className={
+                stats.charCount.labels.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
+              <Pie
+                data={stats.charCount}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "center",
+                      align: "end"
+                    }
+                  }}}
+              />
+            </div>
+          </div>
+          <p className="comment">"{stats.mostChars.name}" wrote {stats.mostChars.value} characters... that is a lot!</p>
+          </div>
+        </div>
+      <div className="flex-row">
+        <div className="item-container">
+          <div className="stat-item">
+            <h2> Average words per message </h2>
+            <p className="description">Average words per message by each contact.</p>
+            <div
+              className={
+                stats.wordAvg.labels.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
+              <Pie
+                data={stats.wordAvg}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "center",
+                      align: "end",
+                      formatter: (e) => e.toFixed(1)
+                    }
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <p className="comment">"{stats.mostWordsPerMessage.name}" is the most wordy. "{stats.leastWordsPerMessage.name}" is... most efficient?</p>
+        </div>
+        <div className="item-container">
+          <div className="stat-item">
+            <h2> Average characters per message </h2>
+            <p className="description">Average characters per message by each contact.</p>
+            <div
+              className={
+                stats.charAvg.labels.length > 10
+                  ? "chart-container bigger"
+                  : "chart-container"
+              }
+            >
+              <Pie
+                data={stats.charAvg}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "center",
+                      align: "end",
+                      formatter: (e) => e.toFixed(1)
+                    }
+                  } }}
+              />
+            </div>
+          </div>
+          <p className="comment">"{stats.mostCharactersPerMessage.name}" is the one writting longer messages, while "{stats.leastCharactersPerMessage.name}" keeps it short.</p>
+        </div>
+        <div className="item-container">
+          <div className="stat-item">
+            <h2> Conversations started </h2>
+            <p className="description">Conversations started by each contact.</p>
+            <div
+              className={
+                stats.charAvg.labels.length > 10
+                  ? "chart-container bigger horizontal"
+                  : "chart-container horizontal"
+              }
+            >
+              <Bar
+                data={stats.conversationsStarted}
+                options={{ 
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { display: false, position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "end",
+                      align: "start"
+                    }
+                  },
+                  indexAxis: 'y' }}
+              />
+            </div>
+          </div>
+          <p className="comment">"{stats.mostConversationsStarted.name}" tends to start the conversation. "{stats.leastConversationsStarted.name}" does it the least often.</p>
+        </div>
+        <div className="item-container">
+          <div className="stat-item">
+            <h2> Average response time </h2>
+            <p className="description">Average response time in minutes by each contact.</p>
+            <div
+              className={
+                stats.charAvg.labels.length > 10
+                  ? "chart-container bigger horizontal"
+                  : "chart-container horizontal"
+              }
+            >
+              <Bar
+                data={stats.fastestRepliers}
+                options={{ 
+                  maintainAspectRatio: false,
+                  plugins: { 
+                    legend: { display: false, position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "end",
+                      align: "end",
+                      formatter: (e) => e.toFixed(1)
+                    }
+                  }, 
+                  indexAxis: 'y' }}
+              />
+            </div>
+          </div>
+          <p className="comment">"{stats.fastestReplier.name}" usually replies in {stats.fastestReplier.value.toFixed(1)} mins. "{stats.slowestReplier.name}" checks the phone from time to time... to say something.</p>
+      </div>
+        </div>
+      <div className="flex-row">
+        { Object.keys(stats.photoCount).length !== 0 ? (
+          <div className="item-container">
+            <div className="stat-item">
+              <h2> Photo count </h2>
+              <p className="description">Amount of photos sent by each contact.</p>
+              <div
+                className={
+                  Object.keys(stats.photoCount).length > 10
+                    ? "chart-container bigger"
+                    : "chart-container"
+                }
+              >
+                <Pie
+                  data={stats.photoCount}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { position: 'bottom' },
+                      datalabels: {
+                        display: true,
+                        color: "white",
+                        anchor: "center",
+                        align: "end"
+                      }
+                    } 
+                  }}
+                />
+              </div>
+            </div>
+            <p className="comment">"{stats.mostPhotos.name}" sent {stats.mostPhotos.value} photos.</p>
           </div>
         ) : null}
-        {stats.videoCount.labels.length !== 0 ? (
-          <div className="stat-item">
-            <h2> Video Count </h2>
-            <p className="description">Amount of videos sent by each contact.</p>
-            <div
-              className={
-                stats.videoCount.datasets.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.videoCount}
-                options={{ maintainAspectRatio: false }}
-              />
+        {Object.keys(stats.videoCount).length !== 0 ? (
+          <div className="item-container">
+            <div className="stat-item">
+              <h2> Video count </h2>
+              <p className="description">Amount of videos sent by each contact.</p>
+              <div
+                className={
+                  Object.keys(stats.videoCount).length > 10
+                    ? "chart-container bigger"
+                    : "chart-container"
+                }
+              >
+                <Pie
+                  data={stats.videoCount}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' },
+                    datalabels: {
+                      display: true,
+                      color: "white",
+                      anchor: "center",
+                      align: "end"
+                    }
+                  }
+                }}
+                />
+              </div>
             </div>
+            <p className="comment">"{stats.mostVideos.name}" sent the most videos.</p>
           </div>
         ) : null}
       </div>
       <div className="flex-row">
-        {stats.audioCount.labels.length !== 0 ? (
-          <div className="stat-item">
-            <h2> Audio Count </h2>
-            <p className="description">Amount of audios sent by each contact.</p>
-            <div
-              className={
-                stats.audioCount.datasets.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.audioCount}
-                options={{ maintainAspectRatio: false }}
-              />
+        {Object.keys(stats.audioCount).length !== 0 ? (
+          <div className="item-container">
+            <div className="stat-item">
+              <h2> Audio count </h2>
+              <p className="description">Amount of audios sent by each contact.</p>
+              <div
+                className={
+                  Object.keys(stats.audioCount).length > 10
+                    ? "chart-container bigger"
+                    : "chart-container"
+                }
+              >
+                <Pie
+                  data={stats.audioCount}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { position: 'bottom' },
+                      datalabels: {
+                        display: true,
+                        color: "white",
+                        anchor: "center",
+                        align: "end"
+                      }
+                    }
+                  }}
+                />
+              </div>
             </div>
+            <p className="comment">"{stats.mostAudios.name}" is more into talking than into writting.</p>
           </div>
         ) : null}
-        {stats.stickerCount.labels.length !== 0 ? (
-          <div className="stat-item">
-            <h2> Sticker Count </h2>
-            <p className="description">Amount of stickers sent by each contact.</p>
-            <div
-              className={
-                stats.stickerCount.datasets.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.stickerCount}
-                options={{ maintainAspectRatio: false }}
-              />
+        {Object.keys(stats.stickerCount).length !== 0 ? (
+          <div className="item-container">
+            <div className="stat-item">
+              <h2> Sticker count </h2>
+              <p className="description">Amount of stickers sent by each contact.</p>
+              <div
+                className={
+                  Object.keys(stats.stickerCount).length > 10
+                    ? "chart-container bigger"
+                    : "chart-container"
+                }
+              >
+                <Pie
+                  data={stats.stickerCount}
+                  options={{
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { position: 'bottom' },
+                      datalabels: {
+                        display: true,
+                        color: "white",
+                        anchor: "center",
+                        align: "end"
+                      }
+                    }
+                  }}
+                />
+              </div>
             </div>
+            <p className="comment">{stats.mostStickers.name} loved the stickers feature WhastApp introduced.</p>
           </div>
         ) : null}
       </div>
@@ -210,7 +392,7 @@ function Viz(props) {
           >
             <Bar
               data={stats.messagesMonth}
-              options={{ maintainAspectRatio: false }}
+              options={{ maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, datalabels: { display: false} } }}
             />
           </div>
         </div>
@@ -226,7 +408,7 @@ function Viz(props) {
           >
             <Bar
               data={stats.messagesDay}
-              options={{ maintainAspectRatio: false }}
+              options={{ maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, datalabels: { display: false} } }}
             />
           </div>
         </div>
@@ -243,12 +425,9 @@ function Viz(props) {
             }
           >
 
-          {/* <Radar data={stats.messagesHour} 
-            options={{ maintainAspectRatio: false }}/> */}
-
           <Bar
             data={stats.messagesHour}
-            options={{ maintainAspectRatio: false }}
+            options={{ maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, datalabels: { display: false} } }}
           />
           </div>
         </div>
@@ -268,6 +447,13 @@ function Viz(props) {
           />
         </div>
       </div>
+      <div>
+          <button 
+            className="share-button"
+            onClick={() => exportAsImage(document.body, "chatstats")}>
+            Share
+          </button>
+        </div>
     </div>
   );
 }

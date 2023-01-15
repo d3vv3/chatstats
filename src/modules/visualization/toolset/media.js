@@ -1,4 +1,4 @@
-export function getPhotoCount(polarizedChat, fillColors, lineColors) {
+export function getPhotoCount(polarizedChat) {
   var photoCount = {};
 
   // Iterate polarizedChat keys and see their array length
@@ -11,18 +11,7 @@ export function getPhotoCount(polarizedChat, fillColors, lineColors) {
       });
   });
 
-  // Result should have a format Chartjs Doughnut wants
-  return {
-    labels: Object.keys(photoCount),
-    datasets: [
-      {
-        data: Object.values(photoCount),
-        backgroundColor: fillColors,
-        borderColor: lineColors,
-        // hoverBackgroundColor: colors,
-      },
-    ],
-  };
+  return photoCount;
 }
 
 export function getMediaCount(polarizedChat, fillColors, lineColors, type) {
@@ -38,16 +27,5 @@ export function getMediaCount(polarizedChat, fillColors, lineColors, type) {
       });
   });
 
-  // Result should have a format Chartjs Doughnut wants
-  return {
-    labels: Object.keys(mediaCount),
-    datasets: [
-      {
-        data: Object.values(mediaCount),
-        backgroundColor: fillColors,
-        borderColor: lineColors,
-        // hoverBackgroundColor: colors,
-      },
-    ],
-  };
+  return mediaCount;
 }

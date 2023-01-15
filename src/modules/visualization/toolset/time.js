@@ -82,7 +82,7 @@ export function getMessagesHour(polarizedDates, hours, fillColors, lineColors) {
       return {
         label: key,
         data: Object.values(chat[key]),
-        // type: "bar",
+        type: "bar",
         backgroundColor: fillColors[color],
         borderColor: lineColors[color],
       };

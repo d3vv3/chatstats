@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Local imports
-import AppRouter from "./routes/routes";
+import AppRouter from "./routes";
 
 // Style
 import "./styles/style.scss";
