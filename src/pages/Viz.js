@@ -9,15 +9,15 @@ import ReactWordcloud from "react-wordcloud";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Local imports
-import LoadingIcon from "../components/LoadingIcon";
+import { LoadingIcon, IndividualVisualization } from "../components";
 
 // Local visualization module
 import { analyze } from "../modules/visualization/analyzer.js";
 
-import { exportAsImage } from "../modules/utils";
+import { exportAsImage, exportJSON } from "../modules/utils";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faShareFromSquare, faDownload } from "@fortawesome/free-solid-svg-icons";
 
 // Style
 // import "../styles/style.scss";
@@ -67,198 +67,261 @@ function Viz(props) {
       <h1>
         <span className="gradient-text">ChatStats!</span>
       </h1>
-      <p className="bold">Here is an insight of your chat. Share it if you found it useful!</p>
+      <p className="bold">Here is an insight of your chat. Share it if you find it useful!</p>
       <div className="flex-row">
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Message count </h2>
-            <p className="description">Amount of messages sent by each contact.</p>
-            <div
-              className={
-                stats.messageCount.labels.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.messageCount}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      position: 'bottom'
-                    },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "center",
-                      align: "end"
+          {
+            (stats.messageCount.labels.length === 2) 
+            ? <IndividualVisualization title="Message count" description="Amount of messages sent by each contact." data={stats.messageCount}/>
+            :  <div className="stat-item">
+                  <h2> Message count </h2>
+                  <p className="description">Amount of messages sent by each contact.</p>
+                  <div
+                    className={
+                      stats.messageCount.labels.length > 10
+                        ? "chart-container bigger"
+                        : "chart-container"
                     }
-                  }
-                }}
-              />
-            </div>
+                  >
+                    <Pie
+                      data={stats.messageCount}
+                      options={{
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            position: 'bottom'
+                          },
+                          datalabels: {
+                            display: true,
+                            color: "white",
+                            anchor: "center",
+                            align: "end"
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+            }
+            <p className="comment">Seems like "{stats.mostMessages.name}" sent the most messages.</p>
           </div>
+      </div>
+      <div className="flex-row">
+        <div className="item-container">
+        {
+          (stats.messageCount.labels.length === 2) 
+          ? <IndividualVisualization title="Word count" description="Amount of words sent by each contact." data={stats.wordCount}/>
+          :  <div className="stat-item">
+                <h2> Word count </h2>
+                <p className="description">Amount of words sent by each contact.</p>
+                <div
+                  className={
+                    stats.messageCount.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
+                  }
+                >
+                  <Pie
+                    data={stats.wordCount}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'bottom'
+                        },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end"
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">Seems like "{stats.mostTalker.name}" is the most talkative.</p>
         </div>
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Character count </h2>
-            <p className="description">Amount of characters sent by each contact.</p>
-            <div
-              className={
-                stats.charCount.labels.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.charCount}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "center",
-                      align: "end"
-                    }
-                  }}}
-              />
-            </div>
-          </div>
+          {
+            (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Character count" description="Amount of characters sent by each contact." data={stats.charCount}/>
+            : <div className="stat-item">
+                <h2> Character count </h2>
+                <p className="description">Amount of characters sent by each contact.</p>
+                <div
+                  className={
+                    stats.charCount.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
+                  }
+                >
+                  <Pie
+                    data={stats.charCount}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end"
+                        }
+                      }}}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">"{stats.mostChars.name}" wrote {stats.mostChars.value} characters... that is a lot!</p>
           </div>
         </div>
       <div className="flex-row">
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Average words per message </h2>
-            <p className="description">Average words per message by each contact.</p>
-            <div
-              className={
-                stats.wordAvg.labels.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.wordAvg}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "center",
-                      align: "end",
-                      formatter: (e) => e.toFixed(1)
-                    }
+          {
+            (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Average words per message" description="Average words per message by each contact." data={stats.wordAvg}/>
+            : <div className="stat-item">
+                <h2> Average words per message </h2>
+                <p className="description">Average words per message by each contact.</p>
+                <div
+                  className={
+                    stats.wordAvg.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
                   }
-                }}
-              />
-            </div>
-          </div>
+                >
+                  <Pie
+                    data={stats.wordAvg}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end",
+                          formatter: (e) => e.toFixed(1)
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">"{stats.mostWordsPerMessage.name}" is the most wordy. "{stats.leastWordsPerMessage.name}" is... most efficient?</p>
         </div>
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Average characters per message </h2>
-            <p className="description">Average characters per message by each contact.</p>
-            <div
-              className={
-                stats.charAvg.labels.length > 10
-                  ? "chart-container bigger"
-                  : "chart-container"
-              }
-            >
-              <Pie
-                data={stats.charAvg}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "center",
-                      align: "end",
-                      formatter: (e) => e.toFixed(1)
-                    }
-                  } }}
-              />
-            </div>
-          </div>
+          {
+            (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Average characters per message" description="Average characters per message by each contact." data={stats.charAvg}/>
+            : <div className="stat-item">
+                <h2> Average characters per message </h2>
+                <p className="description">Average characters per message by each contact.</p>
+                <div
+                  className={
+                    stats.charAvg.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
+                  }
+                >
+                  <Pie
+                    data={stats.charAvg}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end",
+                          formatter: (e) => e.toFixed(1)
+                        }
+                      } }}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">"{stats.mostCharactersPerMessage.name}" is the one writting longer messages, while "{stats.leastCharactersPerMessage.name}" keeps it short.</p>
         </div>
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Conversations started </h2>
-            <p className="description">Conversations started by each contact.</p>
-            <div
-              className={
-                stats.charAvg.labels.length > 10
-                  ? "chart-container bigger horizontal"
-                  : "chart-container horizontal"
-              }
-            >
-              <Bar
-                data={stats.conversationsStarted}
-                options={{ 
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { display: false, position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "end",
-                      align: "start"
-                    }
-                  },
-                  indexAxis: 'y' }}
-              />
-            </div>
-          </div>
+          { (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Conversations started" description="Conversations started by each contact." data={stats.conversationsStarted}/>
+            : <div className="stat-item">
+                <h2> Conversations started </h2>
+                <p className="description">Conversations started by each contact.</p>
+                <div
+                  className={
+                    stats.charAvg.labels.length > 10
+                      ? "chart-container bigger horizontal"
+                      : "chart-container horizontal"
+                  }
+                >
+                  <Bar
+                    data={stats.conversationsStarted}
+                    options={{ 
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { display: false, position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "end",
+                          align: "start"
+                        }
+                      },
+                      indexAxis: 'y' }}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">"{stats.mostConversationsStarted.name}" tends to start the conversation. "{stats.leastConversationsStarted.name}" does it the least often.</p>
         </div>
         <div className="item-container">
-          <div className="stat-item">
-            <h2> Average response time </h2>
-            <p className="description">Average response time in minutes by each contact.</p>
-            <div
-              className={
-                stats.charAvg.labels.length > 10
-                  ? "chart-container bigger horizontal"
-                  : "chart-container horizontal"
-              }
-            >
-              <Bar
-                data={stats.fastestRepliers}
-                options={{ 
-                  maintainAspectRatio: false,
-                  plugins: { 
-                    legend: { display: false, position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "end",
-                      align: "end",
-                      formatter: (e) => e.toFixed(1)
-                    }
-                  }, 
-                  indexAxis: 'y' }}
-              />
-            </div>
-          </div>
+          {
+            (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Average response time" description="Average response time in minutes by each contact." data={stats.fastestRepliers}/> 
+            : <div className="stat-item">
+                <h2> Average response time </h2>
+                <p className="description">Average response time in minutes by each contact.</p>
+                <div
+                  className={
+                    stats.charAvg.labels.length > 10
+                      ? "chart-container bigger horizontal"
+                      : "chart-container horizontal"
+                  }
+                >
+                  <Bar
+                    data={stats.fastestRepliers}
+                    options={{ 
+                      maintainAspectRatio: false,
+                      plugins: { 
+                        legend: { display: false, position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "end",
+                          align: "end",
+                          formatter: (e) => e.toFixed(1)
+                        }
+                      }, 
+                      indexAxis: 'y' }}
+                  />
+                </div>
+              </div>
+          }
           <p className="comment">"{stats.fastestReplier.name}" usually replies in {stats.fastestReplier.value.toFixed(1)} mins. "{stats.slowestReplier.name}" checks the phone from time to time... to say something.</p>
       </div>
         </div>
       <div className="flex-row">
         { stats.photoCount.labels.length !== 0 ? (
           <div className="item-container">
-            <div className="stat-item">
+            { (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Photo count" description="Amount of photos sent by each contact." data={stats.photosCount} colorMap={stats.colorMap}/> 
+            : <div className="stat-item">
               <h2> Photo count </h2>
               <p className="description">Amount of photos sent by each contact.</p>
               <div
@@ -285,37 +348,41 @@ function Viz(props) {
                 />
               </div>
             </div>
+            }
             <p className="comment">"{stats.mostPhotos.name}" sent {stats.mostPhotos.value} photos.</p>
           </div>
         ) : null}
         {stats.videoCount.labels.length !== 0 ? (
           <div className="item-container">
-            <div className="stat-item">
-              <h2> Video count </h2>
-              <p className="description">Amount of videos sent by each contact.</p>
-              <div
-                className={
-                  stats.videoCount.labels.length > 10
-                    ? "chart-container bigger"
-                    : "chart-container"
-                }
-              >
-                <Pie
-                  data={stats.videoCount}
-                  options={{
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' },
-                    datalabels: {
-                      display: true,
-                      color: "white",
-                      anchor: "center",
-                      align: "end"
-                    }
+            { (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Video count" description="Amount of videos sent by each contact." data={stats.videoCount} colorMap={stats.colorMap}/> 
+            : <div className="stat-item">
+                <h2> Video count </h2>
+                <p className="description">Amount of videos sent by each contact.</p>
+                <div
+                  className={
+                    stats.videoCount.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
                   }
-                }}
-                />
+                >
+                  <Pie
+                    data={stats.videoCount}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: { legend: { position: 'bottom' },
+                      datalabels: {
+                        display: true,
+                        color: "white",
+                        anchor: "center",
+                        align: "end"
+                      }
+                    }
+                  }}
+                  />
+                </div>
               </div>
-            </div>
+            }
             <p className="comment">"{stats.mostVideos.name}" sent the most videos.</p>
           </div>
         ) : null}
@@ -323,66 +390,72 @@ function Viz(props) {
       <div className="flex-row">
         {stats.audioCount.labels.length !== 0 ? (
           <div className="item-container">
-            <div className="stat-item">
-              <h2> Audio count </h2>
-              <p className="description">Amount of audios sent by each contact.</p>
-              <div
-                className={
-                  stats.audioCount.labels.length > 10
-                    ? "chart-container bigger"
-                    : "chart-container"
-                }
-              >
-                <Pie
-                  data={stats.audioCount}
-                  options={{
-                    maintainAspectRatio: false,
-                    plugins: {
-                      legend: { position: 'bottom' },
-                      datalabels: {
-                        display: true,
-                        color: "white",
-                        anchor: "center",
-                        align: "end"
+            { (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Audio count" description="Amount of audios sent by each contact." data={stats.audioCount} colorMap={stats.colorMap}/> 
+            : <div className="stat-item">
+                <h2> Audio count </h2>
+                <p className="description">Amount of audios sent by each contact.</p>
+                <div
+                  className={
+                    stats.audioCount.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
+                  }
+                >
+                  <Pie
+                    data={stats.audioCount}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end"
+                        }
                       }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            }
             <p className="comment">"{stats.mostAudios.name}" is more into talking than into writting.</p>
           </div>
         ) : null}
         {stats.stickerCount.labels.length !== 0 ? (
           <div className="item-container">
-            <div className="stat-item">
-              <h2> Sticker count </h2>
-              <p className="description">Amount of stickers sent by each contact.</p>
-              <div
-                className={
-                  stats.stickerCount.labels.length > 10
-                    ? "chart-container bigger"
-                    : "chart-container"
-                }
-              >
-                <Pie
-                  data={stats.stickerCount}
-                  options={{
-                    maintainAspectRatio: false,
-                    plugins: {
-                      legend: { position: 'bottom' },
-                      datalabels: {
-                        display: true,
-                        color: "white",
-                        anchor: "center",
-                        align: "end"
+            { (stats.messageCount.labels.length === 2)
+            ? <IndividualVisualization title="Sticker count" description="Amount of stickers sent by each contact." data={stats.stickerCount} colorMap={stats.colorMap}/> 
+            : <div className="stat-item">
+                <h2> Sticker count </h2>
+                <p className="description">Amount of stickers sent by each contact.</p>
+                <div
+                  className={
+                    stats.stickerCount.labels.length > 10
+                      ? "chart-container bigger"
+                      : "chart-container"
+                  }
+                >
+                  <Pie
+                    data={stats.stickerCount}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                          display: true,
+                          color: "white",
+                          anchor: "center",
+                          align: "end"
+                        }
                       }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <p className="comment">{stats.mostStickers.name} loved the stickers feature WhastApp introduced.</p>
+            }
+            <p className="comment">{stats.mostStickers.name} loves sending stickers!</p>
           </div>
         ) : null}
       </div>
@@ -459,6 +532,12 @@ function Viz(props) {
             className="share-button"
             onClick={() => exportAsImage(document.body, "chatstats")}>
             Share <FontAwesomeIcon icon={faShareFromSquare} />
+          </button>
+
+          <button 
+            className="share-button"
+            onClick={() => exportJSON(stats, "metrics")}>
+            Export metrics <FontAwesomeIcon icon={faDownload} />
           </button>
         </div>
     </div>

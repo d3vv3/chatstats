@@ -20,4 +20,20 @@ const downloadImage = (blob, fileName) => {
     fakeLink.remove();
 };
 
-export { exportAsImage };
+const exportJSON = (obj, fileName) => {
+
+    var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+    const fakeLink = window.document.createElement("a");
+    fakeLink.style = "display:none;";
+    fakeLink.download = `${fileName}.json`;
+    
+    fakeLink.href = data;
+    
+    document.body.appendChild(fakeLink);
+    fakeLink.click();
+    document.body.removeChild(fakeLink);
+    
+    fakeLink.remove();
+}
+
+export { exportAsImage, exportJSON };

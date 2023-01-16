@@ -19,6 +19,7 @@ import {
 import { 
   getMessageCount,
   getCharCount,
+  getWordCount,
   getWordAvg,
   getCharAvg,
   getMessagesMonth,
@@ -52,12 +53,14 @@ export function analyze(chatObject) {
   var emojiRepetition = getWordRepetition(emojiList, true);
 
   // Counts
-  var messageCount = getMessageCount(polarizedChat, fillColors, lineColors);
-  var charCount = getCharCount(superStrings, fillColors, lineColors);
+  var messageCount = getMessageCount(polarizedChat);
+  // console.log(jsonToChartJS(messageCount));
+  var charCount = getCharCount(superStrings);
+  var wordCount = getWordCount(polarizedChat)
 
   // Averages
-  var wordAvg = getWordAvg(polarizedChat, wordList, fillColors, lineColors);
-  var charAvg = getCharAvg(polarizedChat, superStrings, fillColors, lineColors);
+  var wordAvg = getWordAvg(polarizedChat, wordList);
+  var charAvg = getCharAvg(polarizedChat, superStrings);
 
   // Dates
   var polarizedMonths = polarizeByMonth(polarizedChat);
@@ -101,7 +104,8 @@ export function analyze(chatObject) {
 
   return {
     // Honorable mentions
-    mostTalker: getMaxNomination(messageCount),
+    mostMessages: getMaxNomination(messageCount),
+    mostTalker: getMaxNomination(wordCount),
     mostChars: getMaxNomination(charCount),
     mostWordsPerMessage: getMaxNomination(wordAvg),
     leastWordsPerMessage: getMinNomination(wordAvg),
@@ -118,6 +122,7 @@ export function analyze(chatObject) {
 
     // Counts
     messageCount: jsonToChartJS(messageCount, colorMap),
+    wordCount: jsonToChartJS(wordCount, colorMap),
     charCount: jsonToChartJS(charCount, colorMap),
 
     // Averages
@@ -148,5 +153,6 @@ export function analyze(chatObject) {
     // Colors
     fillColors,
     lineColors,
+    colorMap,
   };
 }

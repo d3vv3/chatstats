@@ -1,4 +1,4 @@
-import { getMessageCount, getCharCount } from "./counts.js";
+import { getMessageCount, getCharCount, getWordCount } from "./counts.js";
 import { getWordAvg, getCharAvg } from "./averages.js";
 import {
   getMessagesMonth,
@@ -8,11 +8,12 @@ import {
 import { getTopWords } from "./repetitions.js";
 import { getPhotoCount, getMediaCount } from "./media.js";
 import { chatReplies, conversationStarter, fastestReplier } from "./replies.js";
-import { jsonToChartJS, jsonToChartJSBar } from "./chartjs.js";
+import { jsonToChartJS } from "./chartjs.js";
 
 export {
     getMessageCount,
     getCharCount,
+    getWordCount,
     getWordAvg,
     getCharAvg,
     getMessagesMonth,

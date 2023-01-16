@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { fileReader } from "../modules/readers/fileReader.js";
@@ -34,7 +34,6 @@ function FileInput(props) {
     fileReader(fileContent, fileName, props.setChatObject);
     console.log("File submited!");
     // Push to the next page
-    
     navigate("/graphs");
     return null;
   };
