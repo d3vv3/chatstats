@@ -1,5 +1,5 @@
 import {
-  polarizeByContacts,
+  // polarizeByContacts,
   polarizeByDay,
   polarizeByHour,
   polarizeByMonth
@@ -33,7 +33,7 @@ import {
   jsonToChartJS
  } from "./toolset";
 
-export function analyze(chatObject) {
+export function analyze(chatObject, polarizeByContacts) {
   if (chatObject === {}) return {};
   var polarizedChat = polarizeByContacts(chatObject);
   var replies = chatReplies(chatObject);
