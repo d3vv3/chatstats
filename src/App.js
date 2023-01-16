@@ -12,13 +12,15 @@ function App() {
   // Chat object
   const [chatObject, setChatObject] = useState({});
   const [fileInserted, setFileInserted] = useState({});
-  const [wasmFunctions, setWasmFunctions] = useState(() => {return {}});
+  const [wasmFunctions, setWasmFunctions] = useState(() => () => {return {}});
   const [ans, setAns] = useState(0)
 
  useEffect(() => {
    init().then(() => {
-     setWasmFunctions(polarize_by_contacts);
+     console.log(polarize_by_contacts)
+     setWasmFunctions(() => polarize_by_contacts);
      setAns(add(1+1))
+     console.log(wasmFunctions)
    })
  }, [])
   

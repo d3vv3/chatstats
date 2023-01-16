@@ -36,6 +36,7 @@ import {
 export function analyze(chatObject, polarizeByContacts) {
   if (chatObject === {}) return {};
   var polarizedChat = polarizeByContacts(chatObject);
+  console.log(polarizedChat)
   var replies = chatReplies(chatObject);
   var colors = getRandomColors(polarizedChat);
   var fillColors = colors[0];

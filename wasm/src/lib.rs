@@ -11,14 +11,13 @@ struct Message {
     // date: DateTime,
     from: String,
     text: String,
-    _type: String,
+    r#type: String,
     // media_type: String
 }
 
 #[derive(Serialize, Deserialize)]
 struct Chat {
-    messages: Vec<Message>,
-    name: String
+    messages: Option<Vec<Message>>,
 }
 
 #[wasm_bindgen]
@@ -28,30 +27,21 @@ pub fn add(a: i32, b: i32) -> i32 {
 
 #[wasm_bindgen]
 pub fn polarize_by_contacts(val: JsValue) -> Result<JsValue, JsValue> {
-    // let chat: Chat = val.into_serde().unwrap();
     let chat: Chat = serde_wasm_bindgen::from_value(val)?;
     let mut messages_by_contacts = HashMap::new();
 
-    for msg in chat.messages {
-        if msg._type == "message".to_string() {
-            let sender = msg.from.clone();
-            // if messages_by_contacts.contains_key(&sender) {
-            let contact_msgs = messages_by_contacts.entry(sender).or_insert(Vec::new());
-            contact_msgs.push(msg)
-            // }
-            // else {
-            //     let mut contact_msgs: Vec<Message> = Vec::new();
-            //     messages_by_contacts.insert(&sender, contact_msgs);
-            // }
-        }
+    match chat.messages {
+        Some(msg_list) => for msg in msg_list {
+            if msg.r#type == "message".to_string() {
+                let sender = msg.from.clone();
+                let contact_msgs = messages_by_contacts.entry(sender).or_insert(Vec::new());
+                contact_msgs.push(msg)
+            }
+        },
+        None => println!("Empty chat."),
     }
 
-    // JsValue::from_serde(&messages_by_contacts).unwrap()
     Ok(serde_wasm_bindgen::to_value(&messages_by_contacts)?)
-
-//     for (contact, &messages) in chat_object.get(&"messages") {
-//         println!("Calling {}: {}", contact, call(number)); 
-//     }
 }
 
 // if let messages_by_contacts::Value::Array(skins) = json["skins"] {

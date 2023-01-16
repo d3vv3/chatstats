@@ -18,6 +18,7 @@ import { exportAsImage } from "../modules/utils";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { polarizeByContacts } from "../modules/visualization/polarizers";
 
 // Style
 // import "../styles/style.scss";
@@ -44,6 +45,7 @@ function Viz(props) {
       }
       // FIXME: doesnt finish execution
       if (props.chatObject !== {} && props.chatObject !== undefined && props.chatObject !== null) {
+        console.log(props.wasmFunctions)
         setStats(analyze(props.chatObject, props.wasmFunctions));
         if (stats !== null) {
           setLoading(false);
