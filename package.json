@@ -35,6 +35,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
