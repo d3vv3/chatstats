@@ -1,0 +1,6 @@
+[30/5/22, 12:51:04] Group name: ‎Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos.
+[30/5/22, 12:51:04] ‎Creaste el grupo "Group name".
+[30/5/22, 12:51:10] Contact 1: Este es un chat de ejemplo en español
+[30/5/22, 12:55:53] Contact 1: It was exported from and iOS device.
+[30/5/22, 12:55:56] Contact 2: Nice! Now we have two cases 😃
+[30/5/22, 12:56:07] Contact 1: Yes! 🦎 

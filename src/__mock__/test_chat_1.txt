@@ -1,0 +1,9 @@
+17/07/2022, 10:13 - Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.
+17/07/2022, 01:19 - Contact 1: This is a test message!
+17/07/2022, 01:20 - Contact 1: <Media omitted>
+17/07/2022, 01:20 - Contact 1: You should be able to use this file for testing
+17/07/2022, 01:30 - Contact 1: <Media omitted>
+17/07/2022, 10:18 - Contact 2: Sounds awesome! Maybe we should clear that this is an Android exported WhatsApp chat.
+17/07/2022, 10:39 - Contact 1: Sure, that is a very good hint 😊
+17/07/2022, 10:19 - Contact 2: 🦎
+17/07/2022, 10:20 - Contact 2: <Media omitted>
