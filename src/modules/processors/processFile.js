@@ -21,7 +21,7 @@ export async function processFile(fileContentString, fileName, fileContent) {
       console.error(e);
       return null;
     }
-  } else if (isTxt.test(fileName)) {
+  } else if (isTxt.test(fileName) || !fileName.includes(".")) {
     try {
       chat = processTxt(fileContentString);
       // console.log(chat);

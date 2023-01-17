@@ -13,7 +13,7 @@ function MainPage(props) {
             <span className="gradient-text">ChatStats!</span>
         </h1>
         <h2>
-            A tool to visualize chat statistics and relevant data from your Whatsapp
+            A tool to visualize chat statistics and relevant data from your Whatsapp and Telegram
             chats.
         </h2>
         <FileInput setChatObject={props.setChatObject} setFileInserted={props.setFileInserted} />
