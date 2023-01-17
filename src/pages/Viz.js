@@ -46,6 +46,7 @@ function Viz(props) {
       // FIXME: doesnt finish execution
       if (props.chatObject !== {} && props.chatObject !== undefined && props.chatObject !== null) {
         console.log(props.wasmFunctions)
+        console.log(props.chatObject)
         setStats(analyze(props.chatObject, props.wasmFunctions));
         if (stats !== null) {
           setLoading(false);
