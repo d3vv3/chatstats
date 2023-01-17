@@ -7,6 +7,7 @@ WORKDIR /app
 # add app
 COPY . .
 
+ENV NODE_ENV=production
 # install app dependencies
 # --force because react-wordcloud has not updated dependencies for 2 years, but works with react@18
 RUN npm install --silent --force
