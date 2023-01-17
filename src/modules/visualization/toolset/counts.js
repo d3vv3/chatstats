@@ -31,6 +31,6 @@ export function getWordCount(polarizedChat) {
   });
 
   // Result should have a format Chartjs Doughnut wants
-  console.log(nonChatjsResult);
+  // console.log(nonChatjsResult);
   return nonChatjsResult;
 }

@@ -3,27 +3,24 @@
  */
 
 import { processTxt } from "../modules/processors/processTxt";
-
-import fs from "fs";
-import path from "path";
+import { loadTestChat } from "../__utils__/utils";
 
 
-const loadTestChat = (name) => {
-    const file = path.join("src/__mock__", name);
-    // console.log(file);
-    const content = fs.readFileSync(file, "utf8", function(err, data) {
-        if (err) console.error(err);
-        return data;
-    });
-    // console.log(content);
-    return content;
-}
 
-
-test("Process a .txt chat file" , () => {
-    const txtChatContent = loadTestChat("test1.txt");
+test("Process an Android .txt chat file" , () => {
+    const txtChatContent = loadTestChat("test_chat_1.txt");
     var count = (txtChatContent.match(/ - /g) || []).length;
     const chat = processTxt(txtChatContent);
-    console.info("Probably", count, "messages", "and we got", chat.messages.length);
-    console.info("Success rate:", (chat.messages.length/count)*100, "%");
+    // console.info("Probably", count, "messages", "and we got", chat.messages.length);
+    // console.info("This may be due to group name changes, group creation and others");
+    // console.info("Success rate:", (chat.messages.length/count)*100, "%");
+});
+
+test("Process an iOS .txt chat file" , () => {
+    const txtChatContent = loadTestChat("test_chat_2.txt");
+    var count = (txtChatContent.match(/\[/g) || []).length;
+    const chat = processTxt(txtChatContent);
+    // console.info("Probably", count, "messages", "and we got", chat.messages.length);
+    // console.info("This may be due to group name changes, group creation and others");
+    // console.info("Success rate:", (chat.messages.length/count)*100, "%");
 });
