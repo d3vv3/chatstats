@@ -1,7 +1,7 @@
 export function processJson(fileContentString) {
     var chat = JSON.parse(fileContentString);
 
-    chat.messages = chat.messages.filter(m => m.from !== undefined).map(parseSpecialCases);
+    chat.messages = chat.messages.map(parseSpecialCases).filter(m => m?.from !== undefined);
     return chat;
 }
 

@@ -1,24 +1,33 @@
-FROM rust:1.31
+# pull official base image
+FROM node:18-bullseye-slim
 
-# set working directory
+RUN apt-get update && \
+    apt-get install -y curl build-essential
+
+WORKDIR /tmp
+
+RUN curl https://sh.rustup.rs -sSf > rustup.sh
+RUN chmod 755 rustup.sh
+RUN ./rustup.sh -y
+RUN rm /tmp/rustup.sh
+
+RUN ~/.cargo/bin/cargo install wasm-pack
+
 WORKDIR /app
 
-# add app
 COPY . .
-
-RUN cargo install wasm-pack
-RUN cd wasm && wasm-pack build --target web --out-dir pkg
-
-# pull official base image
-FROM node:18-alpine3.16
 
 ENV NODE_ENV=production
 
 # install app dependencies
+RUN ls
+RUN ls ~/.cargo/bin/
+RUN cd wasm &&  ~/.cargo/bin/wasm-pack build --target web --out-dir pkg
+RUN cd ..
 # --force because react-wordcloud has not updated dependencies for 2 years, but works with react@18
-RUN npm install --silent --force
-RUN npm run build
-RUN npm install -g serve
+RUN yarn install
+RUN yarn build
+RUN yarn global add serve
 
 # start
-CMD ["npx", "serve",  "-s", "build"]
+CMD ["yarn", "serve",  "-s", "build"]
