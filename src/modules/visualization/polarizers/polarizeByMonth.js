@@ -6,9 +6,9 @@ export default function polarizeByMonth(polarizedChat) {
       result[key] = {};
       try {
         for (let msg of polarizedChat[key]) {
-          var month = msg.date.getMonth() + 1;
-          // console.log(msg.date.getMonth());
-          var year = msg.date.getFullYear();
+          var msg_date = new Date(msg.date);
+          var month = msg_date.getMonth() + 1;
+          var year = msg_date.getFullYear();
           var date = month + "/" + year;
   
           if (months.indexOf(date) === -1) {

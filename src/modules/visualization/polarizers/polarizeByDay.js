@@ -14,7 +14,8 @@ export default function polarizeByDay(polarizedChat) {
       result[key] = {};
       try {
         for (let msg of polarizedChat[key]) {
-          var day = msg.date.getDay();
+          var msg_date = new Date(msg.date);
+          var day = msg_date.getDay();
           var date = week[day];
   
           result[key][date] != null

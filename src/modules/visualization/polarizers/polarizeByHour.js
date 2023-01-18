@@ -10,7 +10,8 @@ export default function polarizeByHour(polarizedChat) {
       result[key] = {};
       try {
         for (let msg of polarizedChat[key]) {
-          var hour = msg.date.getHours();
+          var msg_date = new Date(msg.date);
+          var hour = msg_date.getHours();
           var date = ("0" + hour).slice(-2) + ":00";
   
           result[key][date] != null

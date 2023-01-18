@@ -1,21 +1,17 @@
 use wasm_bindgen::prelude::*;
 use std::collections::HashMap;
-use chrono::{DateTime, Utc};
-
-use gloo_utils::format::JsValueSerdeExt;
-
+// use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-// use serde_json::Result;
 
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize, Clone)]
-struct Message {
-    date: DateTime<Utc>,
-    // date: JsValue,
+pub struct Message {
+    date: i64,
     from: String,
     text: String,
     r#type: String,
-    media_type: String
+    media_type: Option<String>
 }
 
 #[derive(Serialize, Deserialize)]
@@ -30,9 +26,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 
 #[wasm_bindgen]
 pub fn polarize_by_contacts(val: JsValue) -> Result<JsValue, JsValue> {
-// pub fn polarize_by_contacts(val: JsValue) -> Result<JsValue, JsValue> {
-    // let chat: Chat = serde_wasm_bindgen::from_value(val)?;
-    let chat: Chat = JsValue::into_serde(&val).unwrap();
+    let chat: Chat = serde_wasm_bindgen::from_value(val)?;
     let mut messages_by_contacts = HashMap::new();
 
     match chat.messages {
@@ -46,15 +40,9 @@ pub fn polarize_by_contacts(val: JsValue) -> Result<JsValue, JsValue> {
         None => println!("Empty chat."),
     }
 
-    // Ok(serde_wasm_bindgen::to_value(&messages_by_contacts)?)
-    Ok(JsValue::from_serde(&messages_by_contacts))
+    Ok(serde_wasm_bindgen::to_value(&messages_by_contacts)?)
 }
 
-// if let messages_by_contacts::Value::Array(skins) = json["skins"] {
-//     for skin in skins {
-//         // ...
-//     }
-// }
 
 #[test]
 fn add_test() {

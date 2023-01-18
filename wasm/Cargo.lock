@@ -414,6 +414,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "gloo-utils",
+ "js-sys",
  "serde",
  "serde-wasm-bindgen",
  "serde_json",

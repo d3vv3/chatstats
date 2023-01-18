@@ -17,10 +17,8 @@ function App() {
 
  useEffect(() => {
    init().then(() => {
-     console.log(polarize_by_contacts)
      setWasmFunctions(() => polarize_by_contacts);
      setAns(add(1+1))
-     console.log(wasmFunctions)
    })
  }, [])
   
