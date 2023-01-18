@@ -1,5 +1,5 @@
 import {
-  polarizeByContacts,
+  // polarizeByContacts,
   polarizeByDay,
   polarizeByHour,
   polarizeByMonth
@@ -34,9 +34,9 @@ import {
   jsonToChartJS
  } from "./toolset";
 
-export function analyze(chatObject) {
+export function analyze(chatObject, polarizeByContacts) {
   if (chatObject === {}) return {};
-  var polarizedChat = polarizeByContacts(chatObject);
+  var polarizedChat = Object.fromEntries(polarizeByContacts(chatObject));
   var replies = chatReplies(chatObject);
   var colors = getRandomColors(polarizedChat);
   var fillColors = colors[0];
@@ -94,6 +94,7 @@ export function analyze(chatObject) {
 
   // Media counts
   var photoCount = getPhotoCount(polarizedChat);
+  console.log(photoCount);
   var videoCount = getMediaCount(polarizedChat, "video_file");
   var audioCount = getMediaCount(polarizedChat, "voice_message");
   var stickerCount = getMediaCount(polarizedChat, "sticker");

@@ -17,6 +17,7 @@ function AppRouter(props) {
             <Route exact path="/graphs" element={<Viz
                     chatObject={props.chatObject}
                     fileInserted={props.fileInserted}
+                    wasmFunctions={props.wasmFunctions}
                 />} />
 
             <Route path="/" element={<MainPage

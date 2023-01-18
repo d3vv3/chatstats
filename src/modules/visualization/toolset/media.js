@@ -1,5 +1,6 @@
 export function getPhotoCount(polarizedChat) {
   var photoCount = {};
+  console.log(polarizedChat);
 
   // Iterate polarizedChat keys and see their array length
   Object.keys(polarizedChat).forEach((key) => {

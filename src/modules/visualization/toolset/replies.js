@@ -5,7 +5,13 @@ const chatReplies = (chatObject) => {
         const previousMessage = accumulator[accumulator.length - 1]
         const nextMessage = array[currentIndex + 1]
         if (nextMessage === undefined) return accumulator;
-        const minutesToPrevious = (currentMessage.date - previousMessage.date)/1000/60
+
+        var currentDate = new Date(currentMessage.date);
+        var previousDate = new Date(previousMessage.date);
+        // console.log(currentDate)
+        // console.log(previousDate)
+
+        const minutesToPrevious = (currentDate - previousDate)/1000/60
         // If time distance from previous message is geq than 5 hours, consider it a starter message, else reply.
         let currentMessageType = "reply";
         if (minutesToPrevious >= 5*60) {
@@ -15,7 +21,7 @@ const chatReplies = (chatObject) => {
         if (currentMessage.from !== previousMessage.from) {
             accumulator.push({
                 from: currentMessage.from,
-                date: currentMessage.date,
+                date: currentDate,
                 type: currentMessageType,
                 replyTime: minutesToPrevious < 5*60 ? minutesToPrevious : 0
             });
@@ -26,7 +32,7 @@ const chatReplies = (chatObject) => {
         if (currentMessage.from !== nextMessage.from) {
             accumulator.push({
                 from: currentMessage.from,
-                date: currentMessage.date,
+                date: currentDate,
                 type: "reply-end",
                 replyTime: 0
             })

@@ -6,11 +6,13 @@ export function processJson(fileContentString) {
 }
 
 function parseSpecialCases(currentValue) {
-    currentValue.date = new Date(currentValue.date);
+    currentValue.date = parseInt(currentValue.date_unixtime)*1000;
     
     if (typeof currentValue.text === "string"){
         return currentValue;
     }
+
+    if (currentValue.photo) currentValue.media_type = "image";
 
     else if (Array.isArray(currentValue.text)) {
         var text = currentValue.text.reduce(concatMessages);
