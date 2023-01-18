@@ -18,7 +18,6 @@
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-d3-cloud": "^1.0.6",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.2",
     "react-scripts": "^5.0.1",
@@ -30,8 +29,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:wasm": "cd wasm && wasm-pack build --target web --out-dir pkg",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "build:wasm": "wasm-pack build ./wasm --target web --out-dir pkg",
+    "test": "node node_modules/jest/bin/jest.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

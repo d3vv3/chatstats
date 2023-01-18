@@ -12,6 +12,9 @@ RUN ./rustup.sh -y
 RUN rm /tmp/rustup.sh
 
 RUN ~/.cargo/bin/cargo install wasm-pack
+ENV PATH="${PATH}:/root/.cargo/bin"
+RUN echo $PATH
+RUN whoami
 
 WORKDIR /app
 
@@ -20,11 +23,8 @@ COPY . .
 ENV NODE_ENV=production
 
 # install app dependencies
-RUN ls
-RUN ls ~/.cargo/bin/
-RUN cd wasm &&  ~/.cargo/bin/wasm-pack build --target web --out-dir pkg
-RUN cd ..
-# --force because react-wordcloud has not updated dependencies for 2 years, but works with react@18
+# RUN  ~/.cargo/bin/wasm-pack --version
+RUN yarn build:wasm
 RUN yarn install
 RUN yarn build
 RUN yarn global add serve
