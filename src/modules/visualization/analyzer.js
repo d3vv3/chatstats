@@ -91,6 +91,7 @@ export function analyze(chatObject, polarizeByContacts) {
 
   // Media counts
   var photoCount = getPhotoCount(polarizedChat);
+  console.log(photoCount);
   var videoCount = getMediaCount(polarizedChat, "video_file");
   var audioCount = getMediaCount(polarizedChat, "voice_message");
   var stickerCount = getMediaCount(polarizedChat, "sticker");

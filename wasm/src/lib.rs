@@ -11,7 +11,8 @@ pub struct Message {
     from: String,
     text: String,
     r#type: String,
-    media_type: Option<String>
+    media_type: Option<String>,
+    photo: Option<String>
 }
 
 #[derive(Serialize, Deserialize)]
