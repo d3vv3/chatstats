@@ -5,9 +5,26 @@ import colors from "../../colors";
 const hexToRgba = require("hex-to-rgba");
 const emojiRegex = require("emoji-regex");
 
+function selectColor(number) {
+  const hue = number * 137.508; // use golden angle approximation
+  return {hue, saturation: 50, luminance: 75};  // `hsl(${hue},50%,75%)`
+};
+
+function hslToHex({hue, saturation, luminance}) {
+  luminance /= 100;
+  const a = saturation * Math.min(luminance, 1 - luminance) / 100;
+  const f = n => {
+    const k = (n + hue / 30) % 12;
+    const color = luminance - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');  // convert to Hex and prefix "0" if needed
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+};
+
 // Scalable way of generating colors
 export function getRandomColors(polarizedChat) {
-  var lines = [...colors].sort((a, b) => 0.5 - Math.random()).slice(0, Object.keys(polarizedChat).length);
+  // var lines = [...colors].sort((a, b) => 0.5 - Math.random()).slice(0, Object.keys(polarizedChat).length);
+  var lines = [...Array(Object.keys(polarizedChat).length).keys()].map((index) => hslToHex(selectColor(index)));
   var fill = lines.map(function (hex) {
     return hexToRgba(hex, 0.7);
   });
