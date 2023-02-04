@@ -2,7 +2,7 @@ import { parseMessage } from "../parsers/messageParser";
 
 export function processTxt(fileContentString) {
   //const patt = /(\n\u200e?\[?([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4},? [0-9]{2}:[0-9]{2}:?[0-9]{0,2})\]? ?-? ([^:]*): (.*))/;
-  const patt = /\[*(\d{1,2}\/\d{1,2}\/\d{2,4}),?\s(\d{1,2}:\d{2}:*\d*)\]*\s(?:-\s)*(.*?):{1}\s(.*?)(?=\s\[*\d{1,2}\/\d{1,2}\/\d{2,4}|$)/gum;
+  const patt = /\[*(\d{1,2}\/\d{1,2}\/\d{2,4}),\s(\d{1,2}:\d{2}:*\d*[\sam|pm]*)\]*\s(?:-\s)*(.*?):{1}\s(.*?)(?=\s\[*\d{1,2}\/\d{1,2}\/\d{2,4}|$)/gum
   const userLang = navigator.language || navigator.userLanguage;
   var langUS = userLang === "en-US";
   // console.log(langUS);

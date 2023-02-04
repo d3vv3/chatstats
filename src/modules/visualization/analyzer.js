@@ -31,7 +31,8 @@ import {
   chatReplies,
   conversationStarter,
   fastestReplier,
-  jsonToChartJS
+  jsonToChartJS,
+  sentimentAnalysis,
  } from "./toolset";
 
 export function analyze(chatObject, polarizeByContacts) {
@@ -66,6 +67,9 @@ export function analyze(chatObject, polarizeByContacts) {
   var polarizedMonths = polarizeByMonth(polarizedChat);
   var polarizedDays = polarizeByDay(polarizedChat);
   var polarizedHours = polarizeByHour(polarizedChat);
+
+  // Sentiment
+  var sentimentInTime = sentimentAnalysis(polarizedChat);
 
   var messagesMonth = getMessagesMonth(
     polarizedMonths["chat"],
@@ -138,6 +142,9 @@ export function analyze(chatObject, polarizeByContacts) {
     messagesDay: messagesDay, 
     // jsonToChartJSBar(polarizedDays, "days", colorMap),
     messagesHour: messagesHour, // jsonToChartJSBar(polarizedHours, "hours", colorMap),
+
+    // Sentiment
+    sentimentInTime,
 
     // Clouds
     topWords: topWords,

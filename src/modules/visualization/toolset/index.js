@@ -9,6 +9,7 @@ import { getTopWords } from "./repetitions.js";
 import { getPhotoCount, getMediaCount } from "./media.js";
 import { chatReplies, conversationStarter, fastestReplier } from "./replies.js";
 import { jsonToChartJS } from "./chartjs.js";
+import { sentimentAnalysis } from "./nlp.js";
 
 export {
     getMessageCount,
@@ -26,4 +27,5 @@ export {
     conversationStarter,
     fastestReplier,
     jsonToChartJS,
+    sentimentAnalysis,
 }
