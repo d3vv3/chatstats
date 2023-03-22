@@ -1,7 +1,6 @@
 import es_words from "../../common_words/esCommonWords.json";
 import en_words from "../../common_words/enCommonWords.json";
 import whastsapp_words from "../../common_words/whatsappCommonWords.json";
-import colors from "../../colors";
 const hexToRgba = require("hex-to-rgba");
 const emojiRegex = require("emoji-regex");
 
