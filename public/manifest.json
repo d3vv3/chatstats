@@ -54,7 +54,7 @@
       "files": [
         {
           "name": "file",
-          "accept": ["text/plain", ".txt", "application/zip", "application/octet-stream", ".zip"]
+          "accept": ["text/plain", ".txt", "application/json", ".json", "application/zip", "application/octet-stream", ".zip"]
         }
       ]
     }
