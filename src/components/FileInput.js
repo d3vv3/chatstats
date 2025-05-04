@@ -12,7 +12,14 @@ function FileInput(props) {
   const [fileContent, setFileContent] = useState(null);
 
   useEffect(() => {
-    if (!((fileName ?? "").endsWith(".txt") || (fileName ?? "").endsWith(".zip") || (fileName ?? "").endsWith(".json") || !(fileName ?? "").includes("."))) {
+    if (
+      !(
+        (fileName ?? "").endsWith(".txt") ||
+        (fileName ?? "").endsWith(".zip") ||
+        (fileName ?? "").endsWith(".json") ||
+        !(fileName ?? "").includes(".")
+      )
+    ) {
       alert("File format not supported!");
       setFileName(null);
     }
@@ -56,6 +63,7 @@ function FileInput(props) {
         <input
           className="inputfile"
           type="file"
+          accept=".txt,.zip,.json"
           onChange={updateFormState}
           name="file"
           id="file"
