@@ -14,14 +14,16 @@ All the processing is done in client (**serverless** service), so your data neve
 
 Built using [Reactjs](https://reactjs.org/) and [Chartjs](https://github.com/jerairrest/react-chartjs-2).
 
-## Scripts
+## Development
 
-### Baremetal
+> Requires [Node.js](https://nodejs.org/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html) to be installed.
 
-- `npm start`
-- `npm run-script build`
+1. `cargo install wasm-pack`
+2. `npm run build:wasm`
+3. `npm install`
+4. `npm start`
 
-### Docker
+## Docker
 
 - `docker-compose up --build chatstats`
 
@@ -34,6 +36,6 @@ Built using [Reactjs](https://reactjs.org/) and [Chartjs](https://github.com/jer
 - [x] Unzip iPhone Whatsapp exports (it does it that way).
 - [x] Removed fakepath (only real file name) from UI.
 - [x] Fix for D/M/Y or M/D/Y based on device language and then trial error.
+- [x] Print or export button to share with friends.
 - [ ] Help section for common users.
-- [ ] Print or export button to share with friends.
 - [ ] Second theme (scss) with switch.
